@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <!-- Para melhorar o SEO -->
+        <meta name="author" content="Henrike Pajares Braga">
+        <meta name="title" content="Henrike Pajares Braga | Desenvolvedor Full Stack">
+        <meta name="copyright" content="© 2024 Henrike Pajares Braga" />
+        <meta name="keywords" content="Henrike Pjares Braga, desenvolvedor, programador, front-end, back-end, fullstack, developer, portfolio, dev, JavaScript, html, css, php, banco de dados">
+        <meta name="description" content="Olá a todos, me chamo Henrike Pajares Braga, e sou um estudante de Desenvolvimento Web Full Stack. Descubra mais sobre mim e meu trabalho neste portfolio.">
+
+        <meta name="robots" content="index, follow">
+        <meta http-equiv="cache-control" content="no-cache" />
+        <meta name="rating" content="general" />
+
+
+
+        <!-- melhorar no desempenho da pagina com preferencia de carregamento -->
+        <link rel="preload" href="media/henrike.png" as="image">
+
+
+        <!-- icone da pagina -->
+        <link rel="shortcurt icon" href="media/icone.png">
+
+        <!-- swiper css -->
+        <link rel="stylesheet" href="swiper-bundle.min.css">
+
+        <!-- css -->
+        <link rel="stylesheet" href="style.css" />
+
+        <!-- Icones do Remix -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.5.0/remixicon.css" crossorigin="">
+
+
+        <!-- Icones do BoxIcons -->
+        <link
+            href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+            rel="stylesheet"
+        />
+        <!-- Icones do BOOTSTRAP -->
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+        />
+
+        <!-- efeito de revelar no scroll, função localizada em script.js -->
+        <script src="https://unpkg.com/scrollreveal"></script>
+
+        <title>Henrike Pajares Braga | Desenvolvedor Full Stack</title>
+
+      
+    </head>
+    <body>
+        <!-- carregamento do portfolio -->      
+        
+            <div class="inicio" id="overlay">
+                <h2>Conheça minha jornada!</h2>
+                <div title="Acessar conteúdo" alt="lampada" id="lamp" onclick="turnOnLight()"></div>
+                <h4>Henrike Pajares Braga &copy;</h4>
+            </div>
+            
+        <div class="divGod" id="content" style="display: none;"> <!--Div que abrange tudo-->
+                
+            
+            
+           
+            <!-- menu -->
+            <header style="visibility: visible;">
+                <div class="menu">
+                    <img src="media/icone.png" alt="logo" width="50" height="50">
+                    <nav>
+                        <div id="toggle" class="toggle">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                        <ul class="ul">
+                            <li><a class="active" id="active" title="Voltar a tela inicial" href="#home">Home</a></li>
+                            <li><a href="#tech" title="Tecnologias que utilizo">Tecnologias</a></li>
+                            <li><a href="#skills" title="Habilidades Interpessoais que possuo">Soft Skills</a></li>
+                            <li><a href="#projetos" title="Projetos que desenvolvi">Projetos</a></li>
+                            <li><a href="#contato" title="Enviar-me uma mensagem">Contato</a></li>
+
+                            <div title="Alterar tema" class="toggle-mode">
+                                <i title="Modo claro" id="sol" class="bi bi-sun-fill"></i>
+                                <input type="checkbox" name="#" id="toggle-mode" class="toggle-btn">
+                                <label for="toggle-mode" class="toggle-lable"></label>
+                                <i title="Modo escuro" id="lua" class="bi bi-moon-fill"></i>
+                                </div>
+
+                        </ul>
+                    </nav>
+                    
+                </div>
+            </header>
+
+            
+            
+
+            <!--Aba de sobre mim com social media  -->
+            <div id="home" class="section">
+                <div class="social">
+                    <img id="henrike" title="Henrike" src="media/henrike.png" alt="foto de perfil Henrike" />
+
+                    <div class="buttons">
+                        <a title="LinkedIn" href="https://www.linkedin.com/in/henrikebraga/"
+                            ><i class="bx bxl-linkedin-square"></i
+                        ></a>
+                        <a title="GitHub" href="https://github.com/Henrike-PB"
+                            ><i class="bx bxl-github"></i
+                        ></a>
+                        <a title="Instagram" href="https://www.instagram.com/dev_henrike/"
+                            ><i class="bx bxl-instagram" src=""></i
+                        ></a>
+                    </div>
+                </div>
+
+                <!-- Aba com frase de efeito e breve biografia -->
+                <div class="biografia">
+                    <h1 class="area-1">
+                        Oi,<br />
+                        eu me chamo <br />
+                        <span>Henrike</span>
+                    </h1>
+                    <p class="frase"><span class="typing"></span></p>
+                    <!-- Alternativa para usuários sem JavaScript ativado -->
+                    <noscript>
+                        <p class="frase">
+                            Carpe diem: "Aproveite o dia e deixe o mínimo
+                            possível para o amanhã".
+                        </p>
+                    </noscript>
+                    <br />
+                    <br />
+                    <p class="sobre-mim">
+                        Olá a todos, me chamo Henrike Pajares Braga, tenho 22 anos e acredito que com boas ideias e tecnologia podemos mudar a nossa realidade. <br><br> 
+
+                        Gosto muito de música, fotografia, programação e arte, tento enxergar a vida sempre com um olhar a mais por conta disso.<br><br>
+                        
+                        Sou estudante de desenvolvimento web no Instituto da Oportunidade Social, onde eu descobri que estudar sobre diversas tecnologias em pró do dia a dia e a sociedade, é o caminho que quero trilhar. <br><br>
+                        
+                        Levo comigo a filosofia do Jiu-Jitsu, que meu pai me ensinou, onde os principais pilares de disciplina, resiliência e persistência encaixo em todas as áreas da minha vida.
+                        Eu não consigo me conformar em estar parado no mundo, quero agregar sempre onde estou nem que seja na coisa mais mínima. <br><br>
+                        
+                        Minha maior motivação é a minha família, por isso vou em busca de aprender e conhecer meios que me possibilitam a ajuda-los, por conta disso vou correr este caminho. Para transformar a nossa realidade.<br>
+                        
+                    </p>
+                </div>
+            </div>
+
+            <!-- Aba sobre tecnologias que utilizo -->
+            <section class="tech" id="tech">
+                <h2 >Tecnologias</h2>
+                <div class="tech-container">
+
+                    <div class="tech-box">
+                        <div class="tech-info">
+                            <h4>HTML <i class="bx bxl-html5"></i></h4>
+                            <p>
+                                HTML, ou Linguagem de Marcação de Hipertexto, é
+                                a espinha dorsal de uma página web. Ela define a
+                                estrutura e o conteúdo usando uma variedade de
+                                elementos e tags predefinidos, criando a base
+                                para a experiência digital
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="tech-box">
+                        <div class="tech-info">
+                            <h4>CSS <i class="bx bxl-css3"></i></h4>
+                            <p>
+                                CSS, ou Folhas de Estilo em Cascata, é o toque
+                                de estilo que dá vida às páginas web. Ele
+                                permite controlar cores, fontes, layout e muito
+                                mais, transformando o HTML em designs
+                                visualmente cativantes e coesos.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="tech-box">
+                        <div class="tech-info">
+                            <h4>
+                                JavaScript
+                                <i class="bx bxl-javascript square"></i>
+                            </h4>
+                            <p>
+                                Linguagem de programação por trás da
+                                interatividade na web. Esta linguagem dinâmica e
+                                versátil permite criar animações, formulários
+                                inteligentes, comunicação com servidores e até
+                                mesmo jogos, tornando as páginas web mais
+                                dinâmicas e envolventes.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="tech-box">
+                        <div class="tech-info">
+                            <h4>
+                                PHP
+                                <i class="bx bxl-php square"></i>
+                            </h4>
+                            <p>
+                                Linguagem poderosa presente na
+                                interatividade web. Esta linguagem versátil e
+                                dinâmica possibilita criar animações, formulários
+                                inteligentes, comunicação com servidores e até
+                                jogos, tornando as páginas mais
+                                dinâmicas e atrativas.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="tech-box">
+                        <div class="tech-info">
+                            <h4>Canva <i class="bx bxs-palette"></i></h4>
+                            <p>
+                                Com o Canva, você desbloqueia seu potencial
+                                criativo. Esta plataforma de design gráfico
+                                online oferece uma ampla gama de ferramentas e
+                                recursos para criar conteúdos visuais incríveis,
+                                desde mídias sociais até apresentações e
+                                convites, tornando o design acessível para
+                                todos.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="tech-box">
+                        <div class="tech-info breve">
+                            <h4>Em breve! <i class="bx bxs-bulb"></i></h4>
+                            <p>
+                                Estou buscando me aperfeiçoar cada vez mais,
+                                estudando novas tecnologias, ferramentas e
+                                absorvendo conhecimento.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!--Aba sobre minhas habilidades de soft skills  -->
+            <section id="skills" class="soft">
+                <div class="conteudo">
+                    <h2 class="area-02">Principais <span>Soft Skills</span></h2>
+                    <div class="flex">
+                        <div class="skills-box">
+                            <i class="bi bi-pencil-square"></i>
+                            <h3>Escrita</h3>
+                            <p>
+                                A habilidade de expressar ideias de forma clara
+                                e persuasiva por meio de palavras escritas,
+                                comunicando efetivamente mensagens e informações
+                                para diversos públicos e propósitos.
+                            </p>
+                        </div>
+
+                        <div class="skills-box">
+                            <i class="bi bi-people-fill"></i>
+                            <h3>Trabalho em Equipe</h3>
+                            <p>
+                                A capacidade de colaborar harmoniosamente com
+                                outros indivíduos em busca de objetivos comuns,
+                                contribuindo ativamente, ouvindo atentamente e
+                                respeitando as opiniões e habilidades de todos
+                                os membros da equipe.
+                            </p>
+                        </div>
+
+                        <div class="skills-box">
+                            <i class="bi bi-megaphone-fill"></i>
+                            <h3>Comunicação</h3>
+                            <p>
+                                A aptidão para transmitir informações de maneira
+                                clara, concisa e compreensível, utilizando uma
+                                variedade de canais e métodos para garantir que
+                                a mensagem seja recebida e entendida pelo
+                                destinatário
+                            </p>
+                        </div>
+
+                        <div class="skills-box">
+                            <i class="bi bi-wind"></i>
+                            <h3>Resiliência</h3>
+                            <p>
+                                A habilidade de se adaptar e se recuperar de
+                                adversidades, desafios e fracassos, mantendo uma
+                                atitude positiva, perseverança e capacidade de
+                                enfrentar obstáculos com determinação e
+                                confiança.
+                            </p>
+                        </div>
+
+                        <div class="skills-box">
+                            <i class="bi bi-book-half"></i>
+                            <h3>Aprendizado</h3>
+                            <p>
+                                A disposição e capacidade de adquirir novos
+                                conhecimentos, habilidades e experiências de
+                                forma contínua, buscando oportunidades de
+                                desenvolvimento pessoal e profissional e
+                                refletindo sobre os aprendizados para melhorar
+                                constantemente.
+                            </p>
+                        </div>
+
+                        <div class="skills-box">
+                            <i class="bi bi-stars"></i>
+                            <h3>Pensamento Criativo</h3>
+                            <p>
+                                A capacidade de gerar ideias originais e
+                                inovadoras, abordar problemas de maneiras não
+                                convencionais, e conectar conceitos
+                                aparentemente desconexos para encontrar soluções
+                                imaginativas e eficazes.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <hr>
+
+            <!-- Aba sobre os projetos -->
+
+            <!-- usei como inspiração os cards desenvolvidos em video do canal Bedimcode - Responsive Card Slider Using HTML CSS & JavaScript | Swiper JS -->
+            <div id="projetos"  class="projetos-container">
+                <h2 class="projetos-titulo">Projetos</h2>
+                
+                <section class="p-container">
+
+                    <div class="card-container swiper">
+
+                        <div class="card-content">
+                            <div class="swiper-wrapper">
+
+                                <article class="card-article swiper-slide">
+                                    <div class="card-image">
+                                        <img src="media/cafe.png" alt="projeto cafeteria" class="card-img">
+                                            <div class="card-shadow"></div>
+    
+                                                <div class="card-data">
+                                                <h3 class="card-name">Cafeteria IOS</h3>
+                                                <p class="card-descric">
+                                                    A página Cafeteria IOS não é apenas um local de informações sobre café. Utilizando técnicas avançadas de parallax, ela cria uma narrativa visual imersiva que transporta os visitantes para uma jornada sensorial pelo mundo dos grãos.
+                                                </p>
+
+                                                <p class="card-tec">
+                                                    <i class="bx bxl-html5"></i>
+                                                    <i class="bx bxl-css3"></i>
+                                                </p>
+                                                
+                                                <div class="links-btn">
+                                                    <a href="https://henrike-pb.github.io/parallax-text2/" class="card-btn" title="visitar"><i class="bi bi-eye-fill"></i></a>
+                                                    <a href="https://github.com/Henrike-PB/parallax-text2" class="card-btn" title="repositório"><i class='bx bxs-book-bookmark'></i></a>
+                                                </div>
+                                                
+                                            </div>
+                                    </div>
+                                </article>
+                                
+                                <article class="card-article swiper-slide">
+                                    <div class="card-image">
+                                        <img src="media/calc.png" alt="projeto calculadora" class="card-img">
+                                            <div class="card-shadow"></div>
+    
+                                                <div class="card-data">
+                                                <h3 class="card-name">Vincent's Calculator</h3>
+                                                <p class="card-descric">
+                                                    Vincent's Calculator vai além de uma simples calculadora. Inspirada nas obras de Van Gogh, esta calculadora em JavaScript não apenas realiza cálculos, mas também celebra a arte e a criatividade do renomado pintor.
+                                                </p>
+                                                
+                                                <p class="card-tec">
+                                                    <i class="bx bxl-html5"></i>
+                                                    <i class="bx bxl-css3"></i>
+                                                    <i class="bx bxl-javascript square"></i>
+                                                </p>
+    
+                                                <div class="links-btn">
+                                                    <a href="https://henrike-pb.github.io/vincents-calculator/" class="card-btn" title="visitar"><i class="bi bi-eye-fill"></i></a>
+
+                                                    <a href="https://github.com/Henrike-PB/vincents-calculator" class="card-btn" title="repositório"><i class='bx bxs-book-bookmark'></i></a>
+                                                </div>
+                                                
+                                            </div>
+                                    </div>
+                                </article>
+    
+                                <article class="card-article swiper-slide">
+                                    <div class="card-image">
+                                        <img src="media/cap.png" alt="projeto capivara" class="card-img">
+                                            <div class="card-shadow"></div>
+    
+                                                <div class="card-data">
+                                                <h3 class="card-name">CAP´S LETTERS</h3>
+                                                <p class="card-descric">
+                                                    CAP´S LETTERS não se limita a ser apenas mais uma Landing Page. Profundamente envolvida com o futuro da programação, ela oferece uma visão única e cativante por meio de uma identidade visual elaborada, estabelecendo uma conexão instantânea com seu público-alvo.
+                                                </p>
+                                                <p class="card-tec">
+                                                    <i class="bx bxl-html5"></i>
+                                                    <i class="bx bxl-css3"></i>
+                                                    <i class="bx bxl-javascript square"></i>
+                                                </p>
+    
+                                                <div class="links-btn">
+                                                    <a href="https://henrike-pb.github.io/CAPS-LETTERS/" class="card-btn" title="visitar"><i class="bi bi-eye-fill"></i></a>
+
+                                                    <a href="https://github.com/Henrike-PB/CAPS-LETTERS" class="card-btn" title="repositório"><i class='bx bxs-book-bookmark'></i></a>
+                                                </div>
+                                                
+                                            </div>
+                                    </div>
+                                </article>
+    
+                                <article class="card-article swiper-slide">
+                                    <div class="card-image">
+                                        <img src="media/gol.png" alt="projeto jogo da velha" class="card-img">
+                                            <div class="card-shadow"></div>
+    
+                                                <div class="card-data">
+                                                <h3 class="card-name">Game of Old Lady</h3>
+                                                <p class="card-descric">
+                                                    O Game of Old Lady é mais do que um jogo de Jogo da Velha comum. Desenvolvido em JavaScript, destaca-se por personalizar o tema da partida, proporcionando uma experiência única aos jogadores.
+                                                </p>
+                                                <p class="card-tec">
+                                                    <i class="bx bxl-html5"></i>
+                                                    <i class="bx bxl-css3"></i>
+                                                    <i class="bx bxl-javascript square"></i>
+                                                </p>
+    
+                                                <div class="links-btn">
+                                                    <a href="https://henrike-pb.github.io/game-of-oldLady/" class="card-btn" title="visitar"><i class="bi bi-eye-fill"></i></a>
+
+                                                    <a href="https://github.com/Henrike-PB/game-of-oldLady" class="card-btn" title="repositório"><i class='bx bxs-book-bookmark'></i></a>
+                                                </div>
+                                                
+                                            </div>
+                                    </div>
+                                </article>
+    
+                                <article class="card-article swiper-slide">
+                                    <div class="card-image">
+                                        <img src="media/innova.png" alt="projeto INNOVA" class="card-img">
+                                            <div class="card-shadow"></div>
+    
+                                                <div class="card-data">
+                                                <h3 class="card-name">INNOVA</h3>
+                                                <p class="card-descric">
+                                                    O Projeto INNOVA é uma colaboração destinada a promover soluções inovadoras para desafios sociais específicos. Realizado dentro do Instituto da Oportunidade Social, ele visa impactar positivamente comunidades.
+                                                </p>
+                                                <p class="card-tec">
+                                                    <i class="bx bxl-html5"></i>
+                                                    <i class="bx bxl-css3"></i>
+                                                    <i class="bx bxl-javascript square"></i>
+                                                </p>
+    
+                                                <div class="links-btn">
+                                                    <a href="https://henrike-pb.github.io/projeto-final/
+                                                    " class="card-btn" title="visitar"><i class="bi bi-eye-fill"></i></a>
+
+                                                    <a href="https://github.com/Henrike-PB/projeto-final" class="card-btn" title="repositório"><i class='bx bxs-book-bookmark'></i></a>                                                    
+                                                </div>
+                                            </div>
+                                    </div>
+                                </article>
+
+                                <article class="card-article swiper-slide">
+                                    <div class="card-image">
+                                        <img src="media/souls.png" alt="projeto quiz" class="card-img">
+                                            <div class="card-shadow"></div>
+    
+                                                <div class="card-data">
+                                                <h3 class="card-name">Quiz Soulslike</h3>
+                                                <p class="card-descric">
+                                                    Quiz Soulslike é mais do que apenas um jogo de perguntas. Inspirado no universo desafiador de "Dark Souls", testa a coragem e a habilidade dos jogadores em um ambiente virtual repleto de mistérios e perigos.
+                                                </p>
+                                                <p class="card-tec">
+                                                    <i class="bx bxl-html5"></i>
+                                                    <i class="bx bxl-css3"></i>
+                                                    <i class="bx bxl-javascript square"></i>
+                                                </p>
+    
+                                                <div class="links-btn">
+                                                    <a href="https://henrike-pb.github.io/quiz-soulslike/" class="card-btn" title="visitar"><i class="bi bi-eye-fill"></i></a>
+
+                                                    <a href="https://github.com/Henrike-PB/quiz-soulslike" class="card-btn" title="repositório"><i class='bx bxs-book-bookmark'></i></a>
+                                                </div>
+                                            </div>
+                                    </div>
+                                </article>
+
+                                <article class="card-article swiper-slide">
+                                    <div class="card-image">
+                                        <img src="media/space.png" alt="projeto space" class="card-img">
+                                            <div class="card-shadow"></div>
+    
+                                                <div class="card-data">
+                                                <h3 class="card-name">Sistema Solar</h3>
+                                                <p class="card-descric">
+                                                    A Landing Page Sistema Solar oferece uma experiência imersiva que vai além de simples informações sobre astronomia. Combinando habilmente HTML, CSS e técnicas de parallax, ela leva os visitantes em uma viagem pelo vasto cosmos.
+                                                </p>
+                                                <p class="card-tec">
+                                                    <i class="bx bxl-html5"></i>
+                                                    <i class="bx bxl-css3"></i>
+                                                </p>
+    
+                                                <div class="links-btn">
+                                                    <a href="https://henrike-pb.github.io/SOLAR356/" class="card-btn" title="visitar"><i class="bi bi-eye-fill"></i></a>
+
+                                                    <a href="https://github.com/Henrike-PB/SOLAR356" class="card-btn" title="repositório"><i class='bx bxs-book-bookmark'></i></a>
+                                                </div>
+                                            </div>
+                                    </div>
+                                </article>
+
+                                <article class="card-article swiper-slide">
+                                    <div class="card-image">
+                                        <img src="media/tabuada.png" alt="projeto tabuada" class="card-img">
+                                            <div class="card-shadow"></div>
+    
+                                                <div class="card-data">
+                                                <h3 class="card-name">Gerador de Tabuada</h3>
+                                                <p class="card-descric">
+                                                    O Gerador de Tabuada não é apenas uma ferramenta educacional. Projetado especialmente para o público infantil, utiliza uma abordagem lúdica e interativa para tornar o aprendizado da matemática divertido e envolvente.
+                                                </p>
+                                                <p class="card-tec">
+                                                    <i class="bx bxl-html5"></i>
+                                                    <i class="bx bxl-css3"></i>
+                                                    <i class="bx bxl-javascript square"></i>
+                                                </p>
+
+                                                <div class="links-btn">
+                                                    <a href="https://henrike-pb.github.io/tabuada-js/" class="card-btn" title="visitar"><i class="bi bi-eye-fill"></i></a>
+
+                                                    <a href="https://github.com/Henrike-PB/tabuada-js" class="card-btn" title="repositório"><i class='bx bxs-book-bookmark'></i></a>
+                                                </div>
+                                            </div>
+                                    </div>
+                                </article>
+
+                                <article class="card-article swiper-slide">
+                                    <div class="card-image">
+                                        <img src="media/todo.png" alt="projeto to-do" class="card-img">
+                                            <div class="card-shadow"></div>
+    
+                                                <div class="card-data">
+                                                <h3 class="card-name">To-Do List</h3>
+                                                <p class="card-descric">
+                                                    To-do list vai além de uma simples ferramenta de organização. Desenvolvido com JavaScript, oferece funcionalidades dinâmicas e lógica eficiente para gerenciar e acompanhar o progresso das atividades diárias de forma intuitiva.
+                                                </p>
+                                                <p class="card-tec">
+                                                    <i class="bx bxl-html5"></i>
+                                                    <i class="bx bxl-css3"></i>
+                                                    <i class='bx bxl-javascript'></i>
+                                                </p>
+                                                
+                                                <div class="links-btn">
+                                                    <a href="https://henrike-pb.github.io/to-do-list-js/" class="card-btn" title="visitar"><i class="bi bi-eye-fill"></i></a>
+
+                                                    <a href="https://github.com/Henrike-PB/to-do-list-js" class="card-btn" title="repositório"><i class='bx bxs-book-bookmark'></i></a>
+                                                </div>
+                                            </div>
+                                    </div>
+                                </article>
+
+                                <article class="card-article swiper-slide">
+                                    <div class="card-image">
+                                        <img src="media/mugiwara.png" alt="projeto mugiwara" class="card-img">
+                                            <div class="card-shadow"></div>
+    
+                                                <div class="card-data">
+                                                <h3 class="card-name">Mugiwara Jump</h3>
+                                                <p class="card-descric">
+                                                    Mugiwara Jump é mais do que um jogo online comum. Inspirado no popular anime "One Piece", desafia os jogadores a explorarem o mundo pirata enquanto saltam obstáculos e acumulam tesouros valiosos.
+                                                </p>
+                                                <p class="card-tec">
+                                                    <i class="bx bxl-html5"></i>
+                                                    <i class="bx bxl-css3"></i>
+                                                    <i class='bx bxl-javascript'></i>
+                                                </p>
+    
+                                                <div class="links-btn">
+                                                    <a href="https://henrike-pb.github.io/Mugiwara-Jump/" class="card-btn" title="visitar"><i class="bi bi-eye-fill"></i></a>
+
+                                                    <a href="https://github.com/Henrike-PB/Mugiwara-Jump" class="card-btn" title="repositório"><i class='bx bxs-book-bookmark'></i></a>
+                                                </div>
+                                            </div>
+                                    </div>
+                                </article> 
+
+                                <article class="card-article swiper-slide">
+                                    <div class="card-image">
+                                        <img src="media/imc.png" alt="projeto IMC" class="card-img">
+                                            <div class="card-shadow"></div>
+    
+                                                <div class="card-data">
+                                                <h3 class="card-name">Calcule seu IMC</h3>
+                                                <p class="card-descric">
+                                                    Calcular seu IMC não se limita a fornecer uma simples medição de índice de massa corporal. Esta Landing Page desenvolvida em JavaScript oferece uma ferramenta poderosa para monitorar e melhorar a saúde pessoal, apresentando informações valiosas sobre bem-estar.
+                                                </p>
+                                                <p class="card-tec">
+                                                    <i class="bx bxl-html5"></i>
+                                                    <i class="bx bxl-css3"></i>
+                                                    <i class='bx bxl-javascript'></i>
+                                                </p>
+    
+                                                <div class="links-btn">
+                                                    <a href="https://henrike-pb.github.io/calculadora-IMC/" class="card-btn" title="visitar"><i class="bi bi-eye-fill"></i></a>
+
+                                                    <a href="https://github.com/Henrike-PB/calculadora-IMC" class="card-btn" title="repositório"><i class='bx bxs-book-bookmark'></i></a>
+                                                </div>
+                                            </div>
+                                    </div>
+                                </article> 
+
+                                <article class="card-article swiper-slide">
+                                    <div class="card-image">
+                                        <img src="media/kiko.png" alt="projeto kiko" class="card-img">
+                                            <div class="card-shadow"></div>
+    
+                                                <div class="card-data">
+                                                <h3 class="card-name">Kiko Clicker</h3>
+                                                <p class="card-descric">
+                                                    Kiko Clicker oferece mais do que apenas uma forma de passar o tempo. Com sua mecânica simples e viciante, este jogo desenvolvido em parceria com meu colega Cauber Streck, desafia os jogadores a aprimorarem suas habilidades de clique enquanto competem por pontuações mais altas. 
+                                                </p>
+                                                <p class="card-tec">
+                                                    <i class="bx bxl-html5"></i>
+                                                    <i class="bx bxl-css3"></i>
+                                                    <i class='bx bxl-javascript'></i>
+                                                </p>
+    
+                                                <div class="links-btn">
+                                                    <a href="https://github.com/Henrike-PB/Kiko_Clicker" class="card-btn" title="visitar"><i class="bi bi-eye-fill"></i></a>
+
+                                                    <a href="https://cbrms1.github.io/Kiko_Clicker/" class="card-btn" title="repositório"><i class='bx bxs-book-bookmark'></i></a>
+
+                                                </div>
+                                            </div>
+                                    </div>
+                                </article> 
+    
+
+                            </div>
+                           
+                        </div>
+
+                          <!-- Botões de navegação -->
+                          <div class="swiper-button-prev">
+                              <i class="ri-arrow-left-s-line"></i>
+                          </div>
+                            
+                            <div class="swiper-button-next">
+                              <i class="ri-arrow-right-s-line"></i>
+                            </div>
+
+                              <!-- Paginação -->
+                              <div class="swiper-pagination"></div>
+
+                    </div>
+
+                </section>
+
+          </div>
+
+           
+            <!-- Aba para contato -->
+            <section id="contato" class="contact">
+                <h2 class="contato-titulo" >Me envie uma mensagem!</h2>
+
+                <div class="formulario">
+                    <div class="contact-form">
+
+                        <h2>Entre em Contato</h2>
+                        
+                        <form id="contactForm" action="https://formsubmit.co/pajaresbragahenrike@gmail.com" method="POST">
+                            <label for="name">Nome:</label>
+                            <input type="hidden" name="_captcha" value="false">
+                            <input type="text" id="name" name="name" placeholder="Seu nome" required>
+                        
+                            <label for="email">Email:</label>
+                            <input type="text" id="email" name="email" placeholder="exemplo@email.com" required>
+                        
+                            <label for="message">Mensagem:</label>
+                            <textarea id="message" name="message" placeholder="Escreva sua mensagem aqui" required></textarea>
+                        
+                            <input type="hidden" name="_next" value="">
+                            <input type="submit" class="btn" value="Enviar" >               
+                        </form>
+                        
+                        <div class="popup" id="popup">
+                            <img src="media/icone2.png" alt="">
+                            <h2>Obrigado!</h2>
+                            <p>Sua mensagem foi enviada. Responderei assim que possível!</p>
+                            <button type="button" onclick="closePopup()">OK</button>
+                        </div>
+                        
+                        <!-- script para evitar que apos o envio da mensagem seja redirecionado -->
+
+                        <!-- script desenvolvido com ajuda do chatgpt e ideia de resolução vista com jgbpedro -->
+                        <script>                            
+                            window.onload = () => {
+                                const form = document.getElementById("contactForm");
+                                form.onsubmit = (event) => {
+                                    event.preventDefault();
+                                    const data = new FormData(event.target);
+                                    fetch(event.target.action, {
+                                        method: form.method,
+                                        body: data,
+                                        headers: {
+                                            Accept: "application/json",
+                                        },
+                                    })
+                                    .then((response) => {
+                                        openPopup(); // Chamando a função openPopup quando a submissão for bem-sucedida
+                                        form.reset();
+                                    })
+                                    .catch((error) => {
+                                        console.error("Erro ao enviar o formulário:", error);
+                                        // Aqui você pode adicionar tratamento de erro, se desejar
+                                    });
+                                };
+                            };
+                        </script>
+                        
+                
+
+                    </div>
+                </div>  
+            </section>
+
+            <footer class="footer" style="visibility: visible;">
+                <div class="footerContent">
+                    <div class="logo-footer">
+                        <img src="media/icone2.png" width="120" alt="logo henrike">
+                        <h5 class="subtitulo"><span class="typing2"></span></h5>
+                    </div>
+
+                    <div class="buttons-footer">
+                        <a title="LinkedIn" href="https://www.linkedin.com/in/henrikebraga/">
+                            <i class="bx bxl-linkedin-square"></i>
+                        </a>
+                        <a title="GitHub" href="https://github.com/Henrike-PB">
+                            <i class="bx bxl-github"></i>
+                        </a>
+                        <a title="Instagram" href="https://www.instagram.com/dev_henrike/">
+                            <i class="bx bxl-instagram"></i>
+                        </a>
+                    </div>
+                    
+                    <div title="Enviar um email" class="email-footer">
+                    <p ><a class="email-link" href="mailto:pajaresbragahenrike@gmail.com"><i class='bx bxs-envelope'></i><br><br> pajaresbragahenrike@gmail.com</a></p>
+                    </div>
+
+                </div>
+
+                
+                <p class="copy-footer">&copy; 2024 Henrike Pajares Braga | Todos os direitos reservados. </p>
+            </footer>
+        </div><!--Fim da div que abrange tudo-->
+
+   
+     
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"></script>
+
+       
+
+        <script src="darkmode.js"></script>
+
+        <!-- swiper js -->
+        <script src="swiper-bundle.min.js" ></script>
+
+        <script src="app.js" async></script>
+        <script src="script.js" async></script>
+    </body>
+</html>
