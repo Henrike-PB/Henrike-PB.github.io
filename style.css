@@ -382,7 +382,7 @@ header button:hover i {
 
 
 .social {
-  border: 1px solid #F1916D;
+  /* border: 1px solid #F1916D; */
   /* box-shadow: 1px 1px 1px 2px; */
   border-radius: 15px;
   position: relative;
@@ -432,7 +432,7 @@ header button:hover i {
 
 /* Aba do sobre mim */
 .biografia {
-  border: 1px solid #F1916D;
+  /* border: 1px solid #F1916D; */
   border-radius: 15px;
   width: 60%;
   position: relative;
