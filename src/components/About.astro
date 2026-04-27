@@ -1,0 +1,118 @@
+---
+import { Icon } from 'astro-icon/components';
+import { personal } from '@/data/personal';
+
+const [, ...restBio] = personal.bio;
+---
+
+<section id="sobre" class="section">
+  <div class="container-page about-grid">
+    <div class="about-heading">
+      <span class="section-eyebrow">Sobre mim</span>
+      <h2 class="heading-section">
+        Carreira em <span class="accent">dados</span>, paixão por construir.
+      </h2>
+    </div>
+
+    <div class="about-body">
+      {restBio.map((p) => <p>{p}</p>)}
+
+      <div class="about-cards">
+        <a class="about-card" href={personal.contacts.linkedin} target="_blank" rel="noopener">
+          <Icon name="simple-icons:linkedin" />
+          <div>
+            <h3>LinkedIn</h3>
+            <p>linkedin.com/in/henrikebraga</p>
+          </div>
+        </a>
+
+        <a
+          class="about-card"
+          href={personal.contacts.photographyPortfolio}
+          target="_blank"
+          rel="noopener"
+        >
+          <Icon name="lucide:camera" />
+          <div>
+            <h3>Portfólio de Fotografia</h3>
+            <p>Hobby que me acompanha. Registros da turma do Geração Caldeira 2024 e mais.</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+  @media (min-width: 900px) {
+    .about-grid {
+      grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+      gap: 4rem;
+    }
+  }
+  .about-heading {
+    position: relative;
+  }
+  @media (min-width: 900px) {
+    .about-heading {
+      position: sticky;
+      top: 6rem;
+      align-self: start;
+    }
+  }
+  .about-body p {
+    color: var(--fg-muted);
+    font-size: 1.05rem;
+    margin: 0 0 1rem;
+  }
+  .about-body p:last-of-type {
+    margin-bottom: 2rem;
+  }
+  .about-cards {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  @media (min-width: 600px) {
+    .about-cards {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  .about-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.25rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  .about-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--border-strong);
+    box-shadow: var(--shadow-md);
+  }
+  .about-card [data-icon] {
+    width: 1.5rem;
+    height: 1.5rem;
+    color: var(--accent);
+    flex-shrink: 0;
+    margin-top: 0.15rem;
+  }
+  .about-card h3 {
+    margin: 0 0 0.25rem;
+    font-size: 1rem;
+    color: var(--fg);
+  }
+  .about-card p {
+    margin: 0;
+    color: var(--fg-muted);
+    font-size: 0.9rem;
+  }
+</style>

@@ -1,0 +1,213 @@
+---
+import { Image } from 'astro:assets';
+import { Icon } from 'astro-icon/components';
+import { volunteerActivities, getLogo } from '@/data/volunteer';
+---
+
+<section id="voluntariado" class="section">
+  <div class="container-page">
+    <div class="vol-header">
+      <span class="section-eyebrow">Voluntariado</span>
+      <h2 class="heading-section">
+        Causas que me <span class="accent">movem</span>.
+      </h2>
+      <p class="vol-intro">
+        Tecnologia faz mais sentido quando volta para a comunidade. Esses são os projetos onde
+        sigo contribuindo.
+      </p>
+    </div>
+
+    <ul class="vol-grid" role="list">
+      {
+        volunteerActivities.map((v) => {
+          const logo = getLogo(v.logoFile);
+          return (
+            <li class="vol-card">
+              <div
+                class="vol-logo"
+                style={`background-color: ${v.brandColor}`}
+                aria-hidden="true"
+              >
+                {logo ? (
+                  <Image
+                    src={logo}
+                    alt={`Logo ${v.org}`}
+                    widths={[120, 240]}
+                    sizes="120px"
+                    format="webp"
+                    quality={88}
+                    loading="lazy"
+                  />
+                ) : (
+                  <Icon name={v.fallbackIcon} />
+                )}
+              </div>
+
+              <div class="vol-body">
+                <header class="vol-head">
+                  <h3>
+                    {v.url ? (
+                      <a href={v.url} target="_blank" rel="noopener">
+                        {v.org}
+                      </a>
+                    ) : (
+                      v.org
+                    )}
+                  </h3>
+                  {v.fullName && <p class="vol-fullname">{v.fullName}</p>}
+                </header>
+
+                <div class="vol-meta">
+                  <span class="vol-role">{v.role}</span>
+                  <span class="vol-since">{v.since}</span>
+                </div>
+
+                <p class="vol-desc">{v.description}</p>
+
+                {v.honor && (
+                  <p class="vol-honor">
+                    <Icon name="lucide:award" />
+                    {v.honor}
+                  </p>
+                )}
+              </div>
+            </li>
+          );
+        })
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .vol-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+  .vol-intro {
+    color: var(--fg-muted);
+    margin: 1rem auto 0;
+    max-width: 38rem;
+  }
+
+  .vol-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+  @media (min-width: 760px) {
+    .vol-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .vol-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  .vol-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--border-strong);
+    box-shadow: var(--shadow-md);
+  }
+
+  .vol-logo {
+    aspect-ratio: 16 / 9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .vol-logo img {
+    max-width: 65%;
+    max-height: 65%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+  }
+  .vol-logo [data-icon] {
+    width: 3.5rem;
+    height: 3.5rem;
+    color: rgba(255, 255, 255, 0.92);
+  }
+
+  .vol-body {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    flex: 1;
+  }
+
+  .vol-head h3 {
+    margin: 0;
+    color: var(--fg);
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  .vol-head h3 a {
+    border-bottom: 1px dashed transparent;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .vol-head h3 a:hover {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+  .vol-fullname {
+    margin: 0.15rem 0 0;
+    color: var(--fg-subtle);
+    font-size: 0.82rem;
+  }
+
+  .vol-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 0.75rem;
+  }
+  .vol-role {
+    color: var(--fg);
+    font-weight: 500;
+    font-size: 0.92rem;
+  }
+  .vol-since {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--fg-subtle);
+  }
+
+  .vol-desc {
+    margin: 0;
+    color: var(--fg-muted);
+    font-size: 0.92rem;
+    line-height: 1.55;
+    flex: 1;
+  }
+
+  .vol-honor {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin: 0.25rem 0 0;
+    padding: 0.4rem 0.8rem;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
+    color: var(--accent);
+    font-size: 0.82rem;
+    font-weight: 600;
+    align-self: flex-start;
+  }
+  .vol-honor [data-icon] {
+    width: 1rem;
+    height: 1rem;
+  }
+</style>

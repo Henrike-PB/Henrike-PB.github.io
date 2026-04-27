@@ -1,0 +1,189 @@
+---
+import { Icon } from 'astro-icon/components';
+import { personal } from '@/data/personal';
+import { currentYear } from '@/lib/age';
+
+const year = currentYear();
+---
+
+<footer class="site-footer">
+  <div class="container-page footer-inner">
+    <div class="footer-brand">
+      <span class="brand-mark">HPB</span>
+      <div>
+        <strong>{personal.name}</strong>
+        <p>Engenheiro de Dados · Porto Alegre, RS</p>
+      </div>
+    </div>
+
+    <ul class="footer-links" aria-label="Links">
+      <li>
+        <a href={personal.contacts.linkedin} target="_blank" rel="noopener" aria-label="LinkedIn">
+          <Icon name="simple-icons:linkedin" />
+        </a>
+      </li>
+      <li>
+        <a href={personal.contacts.github} target="_blank" rel="noopener" aria-label="GitHub">
+          <Icon name="simple-icons:github" />
+        </a>
+      </li>
+      <li>
+        <a href={personal.contacts.instagram} target="_blank" rel="noopener" aria-label="Instagram">
+          <Icon name="simple-icons:instagram" />
+        </a>
+      </li>
+      <li>
+        <a
+          href={personal.contacts.photographyPortfolio}
+          target="_blank"
+          rel="noopener"
+          aria-label="Portfólio de fotografia"
+        >
+          <Icon name="lucide:camera" />
+        </a>
+      </li>
+      <li>
+        <a href={`mailto:${personal.contacts.email}`} aria-label="Email">
+          <Icon name="lucide:mail" />
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="container-page footer-meta">
+    <p>© <span data-current-year>{year}</span> {personal.name}.</p>
+    <p class="muted">
+      <a href="#hero">Voltar ao topo <Icon name="lucide:arrow-up" /></a>
+    </p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    margin-top: clamp(3rem, 6vw, 5rem);
+    padding-block: 3rem 1.5rem;
+    background: var(--bg-elevated);
+    border-top: 1px solid var(--border);
+  }
+  .footer-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: center;
+    text-align: center;
+  }
+  @media (min-width: 700px) {
+    .footer-inner {
+      flex-direction: row;
+      justify-content: space-between;
+      text-align: left;
+    }
+  }
+
+  .footer-brand {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.85rem;
+  }
+  @media (min-width: 700px) {
+    .footer-brand {
+      flex-direction: row;
+      align-items: center;
+      text-align: left;
+      gap: 1rem;
+    }
+  }
+  .brand-mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: var(--radius-md);
+    background: var(--primary);
+    color: var(--primary-fg);
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.02em;
+    flex-shrink: 0;
+  }
+  .footer-brand strong {
+    display: block;
+    color: var(--fg);
+    font-size: 0.95rem;
+    font-weight: 700;
+  }
+  .footer-brand p {
+    margin: 0.15rem 0 0;
+    color: var(--fg-muted);
+    font-size: 0.82rem;
+  }
+
+  .footer-links {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 0.5rem;
+  }
+  .footer-links a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: var(--radius-md);
+    background: var(--bg-card);
+    color: var(--fg-muted);
+    border: 1px solid var(--border);
+    transition: color 0.2s, transform 0.2s, border-color 0.2s;
+  }
+  .footer-links a:hover {
+    color: var(--accent);
+    transform: translateY(-2px);
+    border-color: var(--border-strong);
+  }
+  .footer-links [data-icon] {
+    width: 1.05rem;
+    height: 1.05rem;
+  }
+
+  .footer-meta {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+    text-align: center;
+  }
+  @media (min-width: 700px) {
+    .footer-meta {
+      flex-direction: row;
+      justify-content: space-between;
+      text-align: left;
+    }
+  }
+  .footer-meta p {
+    margin: 0;
+    color: var(--fg-muted);
+    font-size: 0.85rem;
+  }
+  .footer-meta a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    color: var(--fg-muted);
+    transition: color 0.2s;
+  }
+  .footer-meta a:hover {
+    color: var(--accent);
+  }
+  .footer-meta [data-icon] {
+    width: 0.9rem;
+    height: 0.9rem;
+  }
+</style>

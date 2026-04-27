@@ -1,0 +1,357 @@
+---
+import { Image } from 'astro:assets';
+import { Icon } from 'astro-icon/components';
+import { projects, projectCategories } from '@/data/projects';
+---
+
+<section id="projetos" class="section">
+  <div class="container-page">
+    <div class="projects-header">
+      <span class="section-eyebrow">Projetos</span>
+      <h2 class="heading-section">
+        Projetos que <span class="accent">desenvolvi</span>.
+      </h2>
+      <p class="projects-intro">
+        Alguns projetos realizados durante o curso do IOS, junto com o desafio final do Geração
+        Caldeira 2024 em Python e Machine Learning. Em breve, projetos pessoais de engenharia de
+        dados.
+      </p>
+    </div>
+
+    <div class="projects-filter" role="group" aria-label="Filtrar projetos por categoria">
+      {
+        projectCategories.map((cat, i) => (
+          <button
+            type="button"
+            class={i === 0 ? 'active' : ''}
+            aria-pressed={i === 0 ? 'true' : 'false'}
+            data-filter={cat.id}
+          >
+            {cat.label}
+          </button>
+        ))
+      }
+    </div>
+
+    <ul class="projects-grid" role="list" aria-label="Lista de projetos">
+      {
+        projects.map((p) => (
+          <li class="project-card" data-category={p.category}>
+            <div class="project-image">
+              {p.image ? (
+                <Image
+                  src={p.image}
+                  alt={`Captura do projeto ${p.name}`}
+                  widths={[320, 480, 640]}
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  format="webp"
+                  quality={78}
+                  loading="lazy"
+                  decoding="async"
+                />
+              ) : (
+                <div class="project-image-fallback" aria-hidden="true">
+                  <Icon name={p.icon ?? 'lucide:layers'} />
+                </div>
+              )}
+              {p.featured && <span class="project-badge">Destaque</span>}
+            </div>
+            <div class="project-body">
+              <h3>{p.name}</h3>
+              {p.partner && (
+                <p class="project-partner">
+                  <Icon name="lucide:users" /> com {p.partner}
+                </p>
+              )}
+              <p class="project-desc">{p.description}</p>
+              {p.note && <p class="project-note">{p.note}</p>}
+              <ul class="project-tech" role="list">
+                {p.tech.map((t) => (
+                  <li>{t}</li>
+                ))}
+              </ul>
+              {(p.liveUrl || p.repoUrl) && (
+                <div class="project-actions">
+                  {p.liveUrl && (
+                    <a
+                      href={p.liveUrl}
+                      target="_blank"
+                      rel="noopener"
+                      class="project-link"
+                      aria-label={`Visitar ${p.name}`}
+                    >
+                      <Icon name="lucide:external-link" />
+                      Ver projeto
+                    </a>
+                  )}
+                  {p.repoUrl && (
+                    <a
+                      href={p.repoUrl}
+                      target="_blank"
+                      rel="noopener"
+                      class="project-link ghost"
+                      aria-label={`Repositório de ${p.name}`}
+                    >
+                      <Icon name="simple-icons:github" />
+                      Repositório
+                    </a>
+                  )}
+                </div>
+              )}
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<script is:inline>
+  (function () {
+    const filters = document.querySelectorAll('.projects-filter [data-filter]');
+    const cards = document.querySelectorAll('.project-card');
+    filters.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const f = btn.getAttribute('data-filter');
+        filters.forEach((b) => {
+          const active = b === btn;
+          b.classList.toggle('active', active);
+          b.setAttribute('aria-pressed', active ? 'true' : 'false');
+        });
+        cards.forEach((c) => {
+          const show = f === 'all' || c.getAttribute('data-category') === f;
+          c.classList.toggle('hidden', !show);
+        });
+      });
+    });
+  })();
+</script>
+
+<style>
+  .projects-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  .projects-intro {
+    color: var(--fg-muted);
+    margin: 1rem auto 0;
+    max-width: 42rem;
+  }
+
+  .projects-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    justify-content: center;
+    margin-bottom: 2.5rem;
+  }
+  .projects-filter button {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--fg-muted);
+    padding: 0.5rem 1rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .projects-filter button:hover {
+    color: var(--fg);
+    border-color: var(--border-strong);
+  }
+  .projects-filter button.active {
+    background: var(--primary);
+    color: var(--primary-fg);
+    border-color: var(--primary);
+  }
+
+  .projects-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  @media (min-width: 640px) {
+    .projects-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (min-width: 1024px) {
+    .projects-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .project-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  }
+  .project-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--border-strong);
+    box-shadow: var(--shadow-md);
+  }
+  .project-card.hidden {
+    display: none;
+  }
+
+  .project-image {
+    position: relative;
+    aspect-ratio: 5 / 3;
+    background: var(--bg-elevated);
+    overflow: hidden;
+  }
+  .project-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+  .project-card:hover .project-image img {
+    transform: scale(1.04);
+  }
+  .project-image-fallback {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background:
+      radial-gradient(
+        circle at 20% 20%,
+        color-mix(in srgb, var(--accent) 25%, transparent) 0%,
+        transparent 55%
+      ),
+      radial-gradient(
+        circle at 80% 80%,
+        color-mix(in srgb, var(--primary) 35%, transparent) 0%,
+        transparent 55%
+      ),
+      var(--bg-elevated);
+    transition: transform 0.4s ease;
+  }
+  .project-image-fallback [data-icon] {
+    width: 3.5rem;
+    height: 3.5rem;
+    color: var(--accent);
+    opacity: 0.85;
+  }
+  .project-card:hover .project-image-fallback {
+    transform: scale(1.04);
+  }
+  .project-badge {
+    position: absolute;
+    top: 0.75rem;
+    left: 0.75rem;
+    background: var(--accent);
+    color: var(--accent-fg);
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 0.25rem 0.55rem;
+    border-radius: 999px;
+  }
+
+  .project-body {
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    flex: 1;
+  }
+  .project-body h3 {
+    margin: 0;
+    color: var(--fg);
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  .project-partner {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    margin: 0;
+    font-size: 0.8rem;
+    color: var(--fg-subtle);
+  }
+  .project-partner [data-icon] {
+    width: 0.9rem;
+    height: 0.9rem;
+  }
+  .project-desc {
+    margin: 0;
+    color: var(--fg-muted);
+    font-size: 0.9rem;
+    line-height: 1.55;
+    flex: 1;
+  }
+  .project-note {
+    margin: 0;
+    font-size: 0.78rem;
+    color: var(--fg-subtle);
+    font-style: italic;
+  }
+
+  .project-tech {
+    list-style: none;
+    margin: 0.25rem 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+  }
+  .project-tech li {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    background: var(--bg-elevated);
+    color: var(--fg-muted);
+    border: 1px solid var(--border);
+  }
+
+  .project-actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+  .project-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 0.85rem;
+    border-radius: var(--radius-md);
+    font-size: 0.85rem;
+    font-weight: 600;
+    background: var(--primary);
+    color: var(--primary-fg);
+    transition: background-color 0.2s, color 0.2s, transform 0.15s;
+  }
+  .project-link:hover {
+    background: var(--accent);
+    color: var(--accent-fg);
+    transform: translateY(-1px);
+  }
+  .project-link.ghost {
+    background: transparent;
+    color: var(--fg-muted);
+    border: 1px solid var(--border-strong);
+  }
+  .project-link.ghost:hover {
+    background: var(--bg-elevated);
+    color: var(--fg);
+  }
+  .project-link [data-icon] {
+    width: 0.95rem;
+    height: 0.95rem;
+  }
+</style>

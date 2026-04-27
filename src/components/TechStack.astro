@@ -1,0 +1,126 @@
+---
+import { Icon } from 'astro-icon/components';
+import { techStack } from '@/data/tech';
+---
+
+<section id="stack" class="section">
+  <div class="container-page">
+    <div class="stack-header">
+      <span class="section-eyebrow">Stack</span>
+      <h2 class="heading-section">
+        Tecnologias com que <span class="accent">trabalho</span>.
+      </h2>
+      <p class="stack-intro">
+        Stack atual e bagagem técnica acumulada, organizadas por contexto de uso.
+      </p>
+    </div>
+
+    <div class="stack-grid">
+      {
+        techStack.map((group) => (
+          <article class="stack-card">
+            <header>
+              <h3>{group.title}</h3>
+              <p>{group.description}</p>
+            </header>
+            <ul class="stack-items" role="list">
+              {group.items.map((item) => (
+                <li>
+                  {item.icon && <Icon name={item.icon} />}
+                  <span>{item.name}</span>
+                </li>
+              ))}
+            </ul>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .stack-header {
+    margin-bottom: 3rem;
+    text-align: center;
+  }
+  .stack-intro {
+    color: var(--fg-muted);
+    margin: 1rem auto 0;
+    max-width: 38rem;
+  }
+
+  .stack-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+  @media (min-width: 700px) {
+    .stack-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  @media (min-width: 1100px) {
+    .stack-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .stack-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  .stack-card:hover {
+    border-color: var(--border-strong);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .stack-card h3 {
+    margin: 0 0 0.4rem;
+    color: var(--fg);
+    font-size: 1.1rem;
+    font-weight: 700;
+  }
+  .stack-card header p {
+    margin: 0 0 1rem;
+    color: var(--fg-muted);
+    font-size: 0.88rem;
+    line-height: 1.5;
+  }
+
+  .stack-items {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: auto;
+  }
+  .stack-items li {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.4rem 0.7rem;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    font-size: 0.85rem;
+    color: var(--fg);
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .stack-items li:hover {
+    color: var(--accent);
+    border-color: color-mix(in srgb, var(--accent) 40%, transparent);
+  }
+  .stack-items [data-icon] {
+    width: 1rem;
+    height: 1rem;
+  }
+</style>

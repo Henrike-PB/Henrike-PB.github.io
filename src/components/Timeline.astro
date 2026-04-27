@@ -1,0 +1,404 @@
+---
+import { Icon } from 'astro-icon/components';
+import { sortedExperiences } from '@/lib/experience';
+import type { ExperienceCategory } from '@/data/experience';
+
+const list = sortedExperiences();
+
+const categoryMeta: Record<ExperienceCategory, { label: string; icon: string }> = {
+  data: { label: 'Dados', icon: 'lucide:database' },
+  'legal-tech': { label: 'Legal Tech', icon: 'lucide:scale' },
+  salesforce: { label: 'Salesforce', icon: 'simple-icons:salesforce' },
+  training: { label: 'Formação', icon: 'lucide:graduation-cap' },
+  volunteer: { label: 'Voluntariado', icon: 'lucide:heart-handshake' },
+};
+---
+
+<section id="experiencia" class="section">
+  <div class="container-page">
+    <div class="timeline-header">
+      <span class="section-eyebrow">Trajetória</span>
+      <h2 class="heading-section">
+        Onde já <span class="accent">construí</span>.
+      </h2>
+      <p class="timeline-intro">
+        Da formação técnica no IOS ao primeiro CLT como Engenheiro de Dados, cada passo somou.
+      </p>
+    </div>
+
+    <ol class="timeline" role="list">
+      {
+        list.map((exp) => {
+          const meta = categoryMeta[exp.category];
+          return (
+            <li class={`tl-item tl-${exp.category}`} data-current={exp.current}>
+              <div class="tl-marker" aria-hidden="true">
+                <span class="tl-dot"></span>
+              </div>
+
+              <article class="tl-card">
+                <header class="tl-card-head">
+                  <div class="tl-meta">
+                    <span class="tl-year">
+                      {exp.startYear}
+                      {exp.endYear ? ` · ${exp.endYear}` : ''}
+                      {exp.current && <em class="tl-now">· atual</em>}
+                    </span>
+                    <span class={`tl-cat tl-cat-${exp.category}`}>
+                      <Icon name={meta.icon} />
+                      {meta.label}
+                    </span>
+                  </div>
+                  <h3 class="tl-company">
+                    {exp.url ? (
+                      <a href={exp.url} target="_blank" rel="noopener">
+                        {exp.company}
+                      </a>
+                    ) : (
+                      exp.company
+                    )}
+                  </h3>
+
+                  <ul class="tl-roles" role="list">
+                    {exp.roles.map((r, i) => (
+                      <li>
+                        <span class="tl-role-bullet" aria-hidden="true">
+                          {i === 0 ? '●' : '○'}
+                        </span>
+                        <span class="tl-role-title">{r.title}</span>
+                        <span class="tl-role-since">{r.since}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </header>
+
+                {exp.summary && <p class="tl-summary">{exp.summary}</p>}
+
+                {exp.highlights && exp.highlights.length > 0 && (
+                  <ul class="tl-highlights" role="list">
+                    {exp.highlights.map((h) => (
+                      <li>
+                        <Icon name="lucide:check" />
+                        <span>{h}</span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+
+                {exp.honor && (
+                  <p class="tl-honor">
+                    <Icon name="lucide:award" />
+                    {exp.honor}
+                  </p>
+                )}
+
+                {exp.tech && exp.tech.length > 0 && (
+                  <ul class="tl-tags" role="list">
+                    {exp.tech.map((t) => (
+                      <li>{t}</li>
+                    ))}
+                  </ul>
+                )}
+              </article>
+            </li>
+          );
+        })
+      }
+    </ol>
+  </div>
+</section>
+
+<script is:inline>
+  (function () {
+    const items = document.querySelectorAll('.tl-item');
+    if (!('IntersectionObserver' in window)) {
+      items.forEach((it) => it.classList.add('in-view'));
+      return;
+    }
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add('in-view');
+            io.unobserve(e.target);
+          }
+        });
+      },
+      { rootMargin: '0px 0px -10% 0px', threshold: 0.15 }
+    );
+    items.forEach((it) => io.observe(it));
+  })();
+</script>
+
+<style>
+  .timeline-header {
+    margin-bottom: 3rem;
+    text-align: center;
+  }
+  .timeline-intro {
+    color: var(--fg-muted);
+    margin: 1rem auto 0;
+    max-width: 38rem;
+  }
+
+  .timeline {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: relative;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 1.25rem;
+    width: 2px;
+    background: linear-gradient(
+      to bottom,
+      var(--accent),
+      var(--border) 80%,
+      transparent
+    );
+    border-radius: 2px;
+  }
+  @media (min-width: 768px) {
+    .timeline::before {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+
+  .tl-item {
+    position: relative;
+    padding-left: 3.25rem;
+    padding-bottom: 2rem;
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .tl-item.in-view {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (min-width: 768px) {
+    .tl-item {
+      padding-left: 0;
+      width: 50%;
+    }
+    .tl-item:nth-child(odd) {
+      margin-left: auto;
+      padding-left: 2.5rem;
+    }
+    .tl-item:nth-child(even) {
+      padding-right: 2.5rem;
+    }
+  }
+
+  .tl-marker {
+    position: absolute;
+    left: 0.75rem;
+    top: 0.5rem;
+    width: 1rem;
+    height: 1rem;
+    z-index: 2;
+  }
+  @media (min-width: 768px) {
+    .tl-marker {
+      left: auto;
+      right: -0.5rem;
+    }
+    .tl-item:nth-child(odd) .tl-marker {
+      left: -0.5rem;
+      right: auto;
+    }
+  }
+  .tl-dot {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 3px solid var(--accent);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 18%, transparent);
+  }
+  .tl-item[data-current='true'] .tl-dot {
+    background: var(--accent);
+    animation: pulse 2.4s ease-out infinite;
+  }
+  @keyframes pulse {
+    0% {
+      box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 60%, transparent);
+    }
+    70% {
+      box-shadow: 0 0 0 14px color-mix(in srgb, var(--accent) 0%, transparent);
+    }
+    100% {
+      box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 0%, transparent);
+    }
+  }
+
+  .tl-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-sm);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+  }
+  .tl-card:hover {
+    border-color: var(--border-strong);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+
+  .tl-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    align-items: center;
+    margin-bottom: 0.5rem;
+  }
+  .tl-year {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--fg-muted);
+    letter-spacing: 0.04em;
+  }
+  .tl-now {
+    font-style: normal;
+    color: var(--accent);
+    margin-left: 0.25rem;
+  }
+  .tl-cat {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    color: var(--fg-muted);
+  }
+  .tl-cat [data-icon] {
+    width: 0.85rem;
+    height: 0.85rem;
+  }
+  .tl-cat-data {
+    color: var(--accent);
+    border-color: color-mix(in srgb, var(--accent) 30%, transparent);
+    background: color-mix(in srgb, var(--accent) 10%, transparent);
+  }
+
+  .tl-company {
+    margin: 0 0 0.75rem;
+    font-size: 1.25rem;
+    color: var(--fg);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  .tl-company a {
+    border-bottom: 1px dashed transparent;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .tl-company a:hover {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+
+  .tl-roles {
+    list-style: none;
+    margin: 0 0 1rem;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+  .tl-roles li {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.5rem;
+    font-size: 0.95rem;
+  }
+  .tl-role-bullet {
+    color: var(--accent);
+    font-size: 0.7rem;
+  }
+  .tl-role-title {
+    color: var(--fg);
+    font-weight: 500;
+  }
+  .tl-role-since {
+    color: var(--fg-subtle);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+  }
+
+  .tl-summary {
+    color: var(--fg-muted);
+    margin: 0 0 1rem;
+    font-size: 0.95rem;
+  }
+
+  .tl-highlights {
+    list-style: none;
+    margin: 0 0 1rem;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .tl-highlights li {
+    display: flex;
+    gap: 0.5rem;
+    align-items: flex-start;
+    color: var(--fg-muted);
+    font-size: 0.92rem;
+  }
+  .tl-highlights [data-icon] {
+    width: 1rem;
+    height: 1rem;
+    color: var(--accent);
+    flex-shrink: 0;
+    margin-top: 0.2rem;
+  }
+
+  .tl-honor {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin: 0 0 1rem;
+    padding: 0.4rem 0.8rem;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
+    color: var(--accent);
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+  .tl-honor [data-icon] {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .tl-tags {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+  .tl-tags li {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    padding: 0.25rem 0.55rem;
+    border-radius: 6px;
+    background: var(--bg-elevated);
+    color: var(--fg-muted);
+    border: 1px solid var(--border);
+  }
+</style>

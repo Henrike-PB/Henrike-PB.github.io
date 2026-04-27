@@ -1,0 +1,22 @@
+{
+  "name": "Henrike Pajares Braga · Portfólio",
+  "short_name": "Henrike PB",
+  "description": "Portfólio de Henrike Pajares Braga, Engenheiro de Dados em Porto Alegre.",
+  "lang": "pt-BR",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#06142e",
+  "theme_color": "#06142e",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}

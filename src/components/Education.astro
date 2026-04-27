@@ -1,0 +1,157 @@
+---
+import { Icon } from 'astro-icon/components';
+import { education } from '@/data/education';
+---
+
+<section id="educacao" class="section">
+  <div class="container-page">
+    <div class="edu-header">
+      <span class="section-eyebrow">Formação</span>
+      <h2 class="heading-section">
+        A formação que me <span class="accent">trouxe até aqui</span>.
+      </h2>
+      <p class="edu-intro">
+        Os programas e cursos que construíram a base técnica e a mentalidade que carrego hoje.
+      </p>
+    </div>
+
+    <ul class="edu-list" role="list">
+      {
+        education.map((e) => (
+          <li class="edu-item" data-current={e.current}>
+            <div class="edu-icon" aria-hidden="true">
+              <Icon name="lucide:graduation-cap" />
+            </div>
+            <div class="edu-content">
+              <div class="edu-item-head">
+                <span class="edu-years">
+                  {e.startYear} · {e.endYear}
+                </span>
+                {e.current && <span class="edu-tag">cursando</span>}
+              </div>
+              <h3>
+                {e.url ? (
+                  <a href={e.url} target="_blank" rel="noopener">
+                    {e.institution}
+                  </a>
+                ) : (
+                  e.institution
+                )}
+              </h3>
+              <p>{e.degree}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .edu-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+  .edu-intro {
+    color: var(--fg-muted);
+    margin: 1rem auto 0;
+    max-width: 38rem;
+  }
+
+  .edu-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  @media (min-width: 768px) {
+    .edu-list {
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+  }
+
+  .edu-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+  }
+  .edu-item:hover {
+    border-color: var(--border-strong);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .edu-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    background: color-mix(in srgb, var(--accent) 15%, transparent);
+    color: var(--accent);
+    border-radius: var(--radius-md);
+    flex-shrink: 0;
+  }
+  .edu-icon [data-icon] {
+    width: 1.3rem;
+    height: 1.3rem;
+  }
+
+  .edu-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .edu-item-head {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+  .edu-years {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--fg-muted);
+    letter-spacing: 0.04em;
+  }
+  .edu-tag {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 0.2rem 0.55rem;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--accent) 15%, transparent);
+    color: var(--accent);
+  }
+  .edu-item h3 {
+    margin: 0 0 0.35rem;
+    font-size: 1.05rem;
+    color: var(--fg);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  .edu-item h3 a {
+    border-bottom: 1px dashed transparent;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .edu-item h3 a:hover {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+  .edu-item p {
+    margin: 0;
+    color: var(--fg-muted);
+    font-size: 0.92rem;
+    line-height: 1.5;
+  }
+</style>

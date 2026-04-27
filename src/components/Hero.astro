@@ -1,0 +1,240 @@
+---
+import { Picture } from 'astro:assets';
+import { Icon } from 'astro-icon/components';
+import { personal } from '@/data/personal';
+import { currentPrimaryRole } from '@/lib/experience';
+import { computeAge } from '@/lib/age';
+import profilePhoto from '@/assets/profile.png';
+
+const role = currentPrimaryRole();
+const [firstParagraph] = personal.bio;
+const initialAge = computeAge(personal.birthDate);
+---
+
+<section id="hero" class="hero">
+  <div class="container-page hero-grid">
+    <div class="hero-text">
+      <span class="hero-eyebrow">
+        <span class="dot" aria-hidden="true"></span>
+        Disponível para conversar · Porto Alegre, RS
+      </span>
+
+      <h1 class="hero-name">
+        Olá, eu sou <span class="accent">{personal.shortName}</span>
+      </h1>
+
+      <p class="hero-role">
+        {role ? <>{role.title} <span class="dim">@</span> <strong>{role.company}</strong></> : personal.tagline}
+      </p>
+
+      <p class="hero-meta">
+        <span><span data-age>{initialAge}</span> anos</span>
+        <span class="sep" aria-hidden="true">·</span>
+        <span>{personal.location}</span>
+      </p>
+
+      <p class="hero-bio">{firstParagraph}</p>
+
+      <div class="hero-cta">
+        <a href="#contato" class="btn btn-primary">
+          <Icon name="lucide:mail" />
+          Entrar em contato
+        </a>
+        <a href="#projetos" class="btn btn-ghost">
+          Ver projetos
+          <Icon name="lucide:arrow-right" />
+        </a>
+      </div>
+
+      <ul class="hero-social" aria-label="Redes sociais">
+        <li>
+          <a href={personal.contacts.linkedin} target="_blank" rel="noopener" aria-label="LinkedIn">
+            <Icon name="simple-icons:linkedin" />
+          </a>
+        </li>
+        <li>
+          <a href={personal.contacts.github} target="_blank" rel="noopener" aria-label="GitHub">
+            <Icon name="simple-icons:github" />
+          </a>
+        </li>
+        <li>
+          <a href={personal.contacts.instagram} target="_blank" rel="noopener" aria-label="Instagram">
+            <Icon name="simple-icons:instagram" />
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="hero-photo">
+      <div class="photo-frame">
+        <Picture
+          src={profilePhoto}
+          alt={`Foto de ${personal.name}`}
+          widths={[320, 480, 720, 960]}
+          sizes="(max-width: 900px) 22rem, 22rem"
+          formats={['avif', 'webp']}
+          fallbackFormat="webp"
+          quality={82}
+          loading="eager"
+          fetchpriority="high"
+          class="photo-img"
+        />
+      </div>
+      <div class="photo-glow" aria-hidden="true"></div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding-block: clamp(3rem, 6vw, 5.5rem) clamp(2.5rem, 5vw, 4rem);
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(2rem, 4vw, 3rem);
+    align-items: center;
+  }
+  @media (min-width: 900px) {
+    .hero-grid {
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    }
+  }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--fg-muted);
+    background: var(--bg-elevated);
+    padding: 0.4rem 0.85rem;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+  }
+  .hero-eyebrow .dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: #22c55e;
+    box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.18);
+  }
+
+  .hero-name {
+    font-size: clamp(2.25rem, 5vw + 0.5rem, 4rem);
+    line-height: 1.05;
+    margin: 1.25rem 0 0.75rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+  }
+  .hero-name .accent {
+    color: var(--accent);
+  }
+
+  .hero-role {
+    font-size: clamp(1.05rem, 1vw + 0.85rem, 1.35rem);
+    color: var(--fg);
+    margin: 0;
+    font-weight: 500;
+  }
+  .hero-role .dim {
+    color: var(--fg-subtle);
+  }
+  .hero-role strong {
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin: 0.5rem 0 1.5rem;
+    color: var(--fg-muted);
+    font-size: 0.95rem;
+  }
+  .hero-meta .sep {
+    color: var(--fg-subtle);
+  }
+
+  .hero-bio {
+    font-size: 1.05rem;
+    color: var(--fg-muted);
+    max-width: 38rem;
+    margin: 0 0 2rem;
+  }
+
+  .hero-cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-social {
+    display: flex;
+    gap: 0.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .hero-social a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: var(--radius-md);
+    background: var(--bg-elevated);
+    color: var(--fg-muted);
+    border: 1px solid var(--border);
+    transition: color 0.2s, transform 0.2s, background-color 0.2s;
+  }
+  .hero-social a:hover {
+    color: var(--accent);
+    transform: translateY(-2px);
+    background: var(--bg-card);
+  }
+  .hero-social [data-icon] {
+    width: 1.15rem;
+    height: 1.15rem;
+  }
+
+  .hero-photo {
+    position: relative;
+    justify-self: center;
+    width: min(100%, 22rem);
+    aspect-ratio: 4 / 5;
+  }
+  .photo-frame {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    border: 1px solid var(--border-strong);
+    box-shadow: var(--shadow-lg);
+    background: var(--bg-elevated);
+  }
+  .photo-frame :global(.photo-img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 30%;
+    transform: scale(1.18) translate(-2.5%, -4.5%);
+    transform-origin: center;
+  }
+  .photo-glow {
+    position: absolute;
+    inset: -10% -10% auto auto;
+    width: 60%;
+    aspect-ratio: 1;
+    background: radial-gradient(circle, var(--accent) 0%, transparent 65%);
+    filter: blur(40px);
+    opacity: 0.45;
+    z-index: 1;
+    pointer-events: none;
+  }
+</style>

@@ -1,0 +1,98 @@
+# ===== Dependências =====
+node_modules/
+.pnp
+.pnp.js
+.yarn/install-state.gz
+jspm_packages/
+
+# ===== Build / output =====
+dist/
+build/
+out/
+.next/
+.astro/
+.vercel/
+.netlify/
+.turbo/
+.cache/
+.parcel-cache/
+.svelte-kit/
+
+# ===== Logs =====
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+.npm
+.yarn-integrity
+
+# ===== Variáveis de ambiente =====
+.env
+.env.local
+.env.*.local
+.env.development
+.env.production
+.env.test
+.envrc
+
+# ===== Editor / IDE =====
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+!.vscode/launch.json
+.idea/
+*.swp
+*.swo
+*~
+*.sublime-project
+*.sublime-workspace
+.history/
+.fleet/
+
+# ===== Sistema operacional =====
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+.AppleDouble
+.LSOverride
+ehthumbs.db
+ehthumbs_vista.db
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# ===== Testes / cobertura =====
+coverage/
+.nyc_output/
+*.lcov
+.jest/
+
+# ===== TypeScript / JS =====
+*.tsbuildinfo
+.eslintcache
+.stylelintcache
+
+# ===== Assistentes IA / config local =====
+CLAUDE.md
+.claude/
+.cursor/
+.aider*
+.continue/
+
+# ===== Lockfiles que não quero (manter só npm) =====
+yarn.lock
+pnpm-lock.yaml
+bun.lockb
+
+# ===== Diversos =====
+.tmp/
+tmp/
+*.bak
+*.orig
+*.rej
+.vercel
+*.tgz

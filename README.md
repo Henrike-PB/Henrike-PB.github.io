@@ -1,26 +1,49 @@
-# Portfólio de Henrike Pajares Braga
+# Portfólio · Henrike Pajares Braga
 
-Bem-vindo ao meu portfólio! Aqui você encontrará uma coleção dos meus projetos e trabalhos, juntamente com informações sobre minhas habilidades e como entrar em contato comigo.
+Portfólio pessoal de **Henrike Pajares Braga**, Engenheiro de Dados em Porto Alegre.
 
-## Sobre Mim
+🔗 **Online em:** [henrike-pb.github.io](https://henrike-pb.github.io)
 
-Olá! Me chamo Henrike Pajares Braga e sou um estudante de Programação Full Stack apaixonado por criar soluções inovadoras e escaláveis. Busco sempre me aperfeiçoar e conhecer novas tecnologias.
+## Stack
 
-Além do desenvolvimento de software, também sou um entusiasta da música, fotografia e arte.
+- [Astro 5](https://astro.build) (static-first, zero-JS por padrão)
+- TypeScript estrito
+- [Tailwind CSS 4](https://tailwindcss.com)
+- [astro-icon](https://github.com/natemoo-re/astro-icon) com Lucide e Simple Icons
+- Otimização de imagens via [Sharp](https://sharp.pixelplumbing.com)
 
-## Habilidades desenvolvidas neste projeto
-- Responsividade
-- Back-end com JavaScript
-- DOM
-- Diferentes layouts com Display: Flex
-- Frameworks de CSS
-- HTML Semântico
+## Rodando localmente
+
+```bash
+npm install
+npm run dev          # http://localhost:4321
+npm run build        # gera dist/
+npm run preview      # serve dist/ pra checar
+```
+
+## Estrutura
+
+```
+src/
+├── data/           dados (personal, experience, projects, tech, education, volunteer)
+├── lib/            helpers (idade, ano, ordenação)
+├── components/     Hero, About, Timeline, TechStack, Projects, Volunteer, Education, Contact, Header, Footer
+├── layouts/        Base.astro
+├── pages/          index.astro
+├── styles/         global.css (tokens + Tailwind)
+└── assets/         imagens otimizadas em build (profile, projects, volunteer)
+```
+
+## Deploy
+
+Deploy automático para GitHub Pages via GitHub Actions a cada push em `main`. Ver [.github/workflows/deploy.yml](.github/workflows/deploy.yml).
 
 ## Contato
 
-Se você gostaria de discutir um projeto, colaboração ou apenas dizer oi, sinta-se à vontade para entrar em contato comigo:
-
 - Email: pajaresbragahenrike@gmail.com
-- LinkedIn: [Henrike Pajares Braga](https://www.linkedin.com/in/henrikebraga/)
+- LinkedIn: [henrikebraga](https://www.linkedin.com/in/henrikebraga/)
+- GitHub: [@Henrike-PB](https://github.com/Henrike-PB)
 
-Fico feliz em conhecê-lo e estou ansioso para colaborar!
+## Licença
+
+MIT — ver [LICENSE](LICENSE).
