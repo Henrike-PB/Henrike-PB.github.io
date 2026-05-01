@@ -1,9 +1,4 @@
-export type ExperienceCategory =
-  | 'data'
-  | 'salesforce'
-  | 'legal-tech'
-  | 'training'
-  | 'volunteer';
+export type ExperienceCategory = 'data' | 'salesforce' | 'legal-tech' | 'training' | 'volunteer';
 
 export type Role = {
   title: string;
@@ -48,17 +43,28 @@ export const experiences: Experience[] = [
       'Conteinerização com Docker para padronização de ambientes',
       'Apoio direto a Analytics e Data Science com dados confiáveis para análises e modelos',
     ],
-    tech: ['Python', 'PySpark', 'FastAPI', 'Airflow', 'Docker', 'AWS', 'Redshift', 'DynamoDB', 'SQL'],
+    tech: [
+      'Python',
+      'PySpark',
+      'FastAPI',
+      'Airflow',
+      'Docker',
+      'AWS',
+      'Redshift',
+      'DynamoDB',
+      'SQL',
+    ],
   },
   {
     id: 'adoc',
     company: 'aDoc',
     startYear: 2025,
-    current: true,
+    endYear: 2025,
+    current: false,
     category: 'legal-tech',
     roles: [{ title: 'Engenheiro Jurídico', since: 'mar/2025' }],
     summary:
-      'Trabalho com automação e formatação de documentos jurídicos na plataforma no-code Avvoka. Configuro variáveis, condições e lógica para geração automatizada de modelos.',
+      'Atuei na automação e formatação de documentos jurídicos na plataforma no-code Avvoka, configurando variáveis, condições e lógica para geração automatizada de modelos.',
     highlights: [
       'Automação de modelos jurídicos no Avvoka (lógica condicional e variáveis)',
       'Personalização e ajustes de layout em Microsoft Word',
@@ -90,7 +96,12 @@ export const experiences: Experience[] = [
     endYear: 2025,
     current: false,
     category: 'training',
-    roles: [{ title: 'Curso de Aprendizagem Profissional · Manutenção de Computadores', since: 'ago/2024' }],
+    roles: [
+      {
+        title: 'Curso de Aprendizagem Profissional · Manutenção de Computadores',
+        since: 'ago/2024',
+      },
+    ],
     summary:
       'Curso de aprendizagem profissional em Suporte de TI: montagem e manutenção de hardware, instalação de sistemas operacionais e diagnóstico de problemas de software.',
     tech: ['Windows', 'Linux', 'Hardware', 'Suporte TI'],
@@ -98,7 +109,7 @@ export const experiences: Experience[] = [
   {
     id: 'geracao-caldeira',
     company: 'Geração Caldeira',
-    url: 'https://geracaocaldeira.org.br',
+    url: 'https://www.geracaocaldeira.org/',
     startYear: 2024,
     endYear: 2024,
     current: false,

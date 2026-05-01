@@ -192,7 +192,10 @@ import { projects, projectCategories } from '@/data/projects';
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    transition:
+      transform 0.25s ease,
+      border-color 0.25s ease,
+      box-shadow 0.25s ease;
   }
   .project-card:hover {
     transform: translateY(-4px);
@@ -334,7 +337,10 @@ import { projects, projectCategories } from '@/data/projects';
     font-weight: 600;
     background: var(--primary);
     color: var(--primary-fg);
-    transition: background-color 0.2s, color 0.2s, transform 0.15s;
+    transition:
+      background-color 0.2s,
+      color 0.2s,
+      transform 0.15s;
   }
   .project-link:hover {
     background: var(--accent);

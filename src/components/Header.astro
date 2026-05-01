@@ -15,7 +15,7 @@ const navItems = [
 <header class="site-header">
   <div class="container-page header-inner">
     <a href="#hero" class="brand" aria-label="Voltar ao topo">
-      <span class="brand-mark">HPB</span>
+      <span class="brand-mark brand-mark--sm">HPB</span>
     </a>
 
     <nav class="nav-desktop" aria-label="Navegação principal">
@@ -78,7 +78,7 @@ const navItems = [
       const isDark = root.classList.contains('dark');
       toggle.setAttribute(
         'aria-label',
-        isDark ? 'Alternar para modo claro' : 'Alternar para modo escuro'
+        isDark ? 'Alternar para modo claro' : 'Alternar para modo escuro',
       );
     }
     if (toggle) {
@@ -94,23 +94,44 @@ const navItems = [
 
     const menu = document.querySelector('[data-menu-toggle]');
     const nav = document.querySelector('[data-mobile-nav]');
-    function close() {
-      menu?.classList.remove('open');
-      menu?.setAttribute('aria-expanded', 'false');
-      nav?.classList.remove('open');
-    }
+    const main = document.getElementById('main');
     if (menu && nav) {
+      const isOpen = () => menu.classList.contains('open');
+      function open() {
+        menu.classList.add('open');
+        menu.setAttribute('aria-expanded', 'true');
+        nav.classList.add('open');
+        document.body.style.overflow = 'hidden';
+        if (main) main.setAttribute('inert', '');
+        nav.querySelector('a')?.focus();
+      }
+      function close() {
+        menu.classList.remove('open');
+        menu.setAttribute('aria-expanded', 'false');
+        nav.classList.remove('open');
+        document.body.style.overflow = '';
+        if (main) main.removeAttribute('inert');
+        if (document.activeElement && nav.contains(document.activeElement)) {
+          menu.focus();
+        }
+      }
       menu.addEventListener('click', (e) => {
         e.stopPropagation();
-        const open = menu.classList.toggle('open');
-        menu.setAttribute('aria-expanded', String(open));
-        nav.classList.toggle('open');
+        isOpen() ? close() : open();
       });
       nav.querySelectorAll('[data-mobile-link]').forEach((a) => {
         a.addEventListener('click', close);
       });
       document.addEventListener('click', (e) => {
+        if (!isOpen()) return;
         if (!nav.contains(e.target) && !menu.contains(e.target)) close();
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && isOpen()) close();
+      });
+      const mq = window.matchMedia('(min-width: 768px)');
+      mq.addEventListener('change', (e) => {
+        if (e.matches && isOpen()) close();
       });
     }
 
@@ -121,11 +142,11 @@ const navItems = [
         if (!header) return;
         header.classList.toggle('scrolled', window.scrollY > 8);
       },
-      { passive: true }
+      { passive: true },
     );
 
     const navLinks = document.querySelectorAll(
-      '.nav-desktop a[href^="#"], .nav-mobile a[href^="#"]'
+      '.nav-desktop a[href^="#"], .nav-mobile a[href^="#"]',
     );
     const linkMap = new Map();
     navLinks.forEach((link) => {
@@ -163,7 +184,7 @@ const navItems = [
             .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
           if (visible.length > 0) setActive(visible[0].target.id);
         },
-        { rootMargin: '-40% 0px -55% 0px', threshold: [0, 0.25, 0.5, 0.75, 1] }
+        { rootMargin: '-40% 0px -55% 0px', threshold: [0, 0.25, 0.5, 0.75, 1] },
       );
       sections.forEach((s) => sectionIO.observe(s));
     }
@@ -179,7 +200,9 @@ const navItems = [
     -webkit-backdrop-filter: blur(12px);
     background: color-mix(in srgb, var(--bg) 80%, transparent);
     border-bottom: 1px solid transparent;
-    transition: border-color 0.25s ease, background-color 0.25s ease;
+    transition:
+      border-color 0.25s ease,
+      background-color 0.25s ease;
   }
   .site-header.scrolled {
     border-bottom-color: var(--border);
@@ -196,21 +219,7 @@ const navItems = [
     font-weight: 700;
     letter-spacing: 0.02em;
   }
-  .brand-mark {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 2.25rem;
-    height: 2.25rem;
-    border-radius: var(--radius-md);
-    background: var(--primary);
-    color: var(--primary-fg);
-    font-size: 0.8rem;
-    font-weight: 700;
-    letter-spacing: 0.02em;
-    transition: transform 0.2s ease;
-  }
-  .brand:hover .brand-mark {
+  .brand:hover :global(.brand-mark) {
     transform: rotate(-6deg) scale(1.05);
   }
 
@@ -228,7 +237,9 @@ const navItems = [
     color: var(--fg-muted);
     font-size: 0.9rem;
     font-weight: 500;
-    transition: color 0.2s, background-color 0.2s;
+    transition:
+      color 0.2s,
+      background-color 0.2s;
   }
   .nav-desktop a:hover {
     color: var(--fg);
@@ -266,7 +277,9 @@ const navItems = [
     border: 1px solid var(--border);
     color: var(--fg);
     cursor: pointer;
-    transition: background-color 0.2s ease, border-color 0.2s ease;
+    transition:
+      background-color 0.2s ease,
+      border-color 0.2s ease;
   }
   .theme-toggle:hover,
   .menu-toggle:hover {
@@ -301,7 +314,9 @@ const navItems = [
     height: 2px;
     background: var(--fg);
     border-radius: 2px;
-    transition: transform 0.25s ease, opacity 0.2s ease;
+    transition:
+      transform 0.25s ease,
+      opacity 0.2s ease;
   }
   .menu-toggle.open span:nth-child(1) {
     transform: translateY(6px) rotate(45deg);

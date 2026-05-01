@@ -22,7 +22,7 @@ export const education: Education[] = [
     startYear: 2024,
     endYear: 2024,
     current: false,
-    url: 'https://geracaocaldeira.org.br',
+    url: 'https://www.geracaocaldeira.org/',
   },
   {
     institution: 'Fundação O Pão dos Pobres',

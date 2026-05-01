@@ -33,7 +33,7 @@ const categoryMeta: Record<ExperienceCategory, { label: string; icon: string }> 
           return (
             <li class={`tl-item tl-${exp.category}`} data-current={exp.current}>
               <div class="tl-marker" aria-hidden="true">
-                <span class="tl-dot"></span>
+                <span class="tl-dot" />
               </div>
 
               <article class="tl-card">
@@ -124,7 +124,7 @@ const categoryMeta: Record<ExperienceCategory, { label: string; icon: string }> 
           }
         });
       },
-      { rootMargin: '0px 0px -10% 0px', threshold: 0.15 }
+      { rootMargin: '0px 0px -10% 0px', threshold: 0.15 },
     );
     items.forEach((it) => io.observe(it));
   })();
@@ -154,12 +154,7 @@ const categoryMeta: Record<ExperienceCategory, { label: string; icon: string }> 
     bottom: 0;
     left: 1.25rem;
     width: 2px;
-    background: linear-gradient(
-      to bottom,
-      var(--accent),
-      var(--border) 80%,
-      transparent
-    );
+    background: linear-gradient(to bottom, var(--accent), var(--border) 80%, transparent);
     border-radius: 2px;
   }
   @media (min-width: 768px) {
@@ -175,7 +170,9 @@ const categoryMeta: Record<ExperienceCategory, { label: string; icon: string }> 
     padding-bottom: 2rem;
     opacity: 0;
     transform: translateY(16px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
+    transition:
+      opacity 0.6s ease,
+      transform 0.6s ease;
   }
   .tl-item.in-view {
     opacity: 1;
@@ -244,7 +241,10 @@ const categoryMeta: Record<ExperienceCategory, { label: string; icon: string }> 
     border-radius: var(--radius-lg);
     padding: 1.5rem;
     box-shadow: var(--shadow-sm);
-    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.2s ease,
+      transform 0.2s ease;
   }
   .tl-card:hover {
     border-color: var(--border-strong);
@@ -302,7 +302,9 @@ const categoryMeta: Record<ExperienceCategory, { label: string; icon: string }> 
   }
   .tl-company a {
     border-bottom: 1px dashed transparent;
-    transition: border-color 0.2s, color 0.2s;
+    transition:
+      border-color 0.2s,
+      color 0.2s;
   }
   .tl-company a:hover {
     color: var(--accent);

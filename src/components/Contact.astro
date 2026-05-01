@@ -24,14 +24,19 @@ import { personal } from '@/data/personal';
             <strong>{personal.contacts.email}</strong>
           </div>
         </a>
-        <a href={personal.contacts.linkedin} target="_blank" rel="noopener" class="contact-direct">
+        <a
+          href={personal.contacts.linkedin}
+          target="_blank"
+          rel="me noopener"
+          class="contact-direct"
+        >
           <Icon name="simple-icons:linkedin" />
           <div>
             <span>LinkedIn</span>
             <strong>/in/henrikebraga</strong>
           </div>
         </a>
-        <a href={personal.contacts.github} target="_blank" rel="noopener" class="contact-direct">
+        <a href={personal.contacts.github} target="_blank" rel="me noopener" class="contact-direct">
           <Icon name="simple-icons:github" />
           <div>
             <span>GitHub</span>
@@ -45,10 +50,16 @@ import { personal } from '@/data/personal';
         class="contact-form"
         action={personal.formSubmitEndpoint}
         method="POST"
-        novalidate
       >
-        <input type="hidden" name="_captcha" value="false" />
         <input type="hidden" name="_subject" value="Contato via portfólio" />
+        <input
+          type="text"
+          name="_honey"
+          tabindex="-1"
+          autocomplete="off"
+          aria-hidden="true"
+          style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0"
+        />
 
         <div class="field">
           <label for="contact-name">Nome</label>
@@ -81,8 +92,7 @@ import { personal } from '@/data/personal';
             name="message"
             rows="5"
             placeholder="Conta o que você gostaria de propor ou perguntar..."
-            required
-          ></textarea>
+            required></textarea>
         </div>
 
         <button type="submit" class="btn btn-primary contact-submit">
@@ -166,7 +176,10 @@ import { personal } from '@/data/personal';
     background: var(--bg-card);
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
-    transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+    transition:
+      border-color 0.2s,
+      transform 0.2s,
+      box-shadow 0.2s;
   }
   .contact-direct:hover {
     border-color: var(--border-strong);
@@ -223,7 +236,9 @@ import { personal } from '@/data/personal';
     color: var(--fg);
     border: 1px solid var(--border-strong);
     border-radius: var(--radius-md);
-    transition: border-color 0.2s, box-shadow 0.2s;
+    transition:
+      border-color 0.2s,
+      box-shadow 0.2s;
     resize: vertical;
   }
   .field input::placeholder,
@@ -257,9 +272,9 @@ import { personal } from '@/data/personal';
     color: var(--fg-muted);
   }
   .form-status[data-kind='ok'] {
-    color: #16a34a;
+    color: var(--success);
   }
   .form-status[data-kind='error'] {
-    color: #dc2626;
+    color: var(--danger);
   }
 </style>

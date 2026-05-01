@@ -3,18 +3,25 @@
   "type": "module",
   "version": "2.0.0",
   "private": true,
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",
+    "typecheck": "astro check",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "og": "node scripts/generate-og.mjs",
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/check": "^0.9.4",
-    "@astrojs/sitemap": "^3.2.1",
+    "@astrojs/check": "^0.9.9",
+    "@astrojs/sitemap": "^3.7.2",
     "@tailwindcss/vite": "^4.0.0",
-    "astro": "^5.1.0",
+    "astro": "^6.2.1",
     "astro-icon": "^1.1.5",
     "sharp": "^0.33.5",
     "tailwindcss": "^4.0.0",
@@ -22,6 +29,8 @@
   },
   "devDependencies": {
     "@iconify-json/lucide": "^1.2.103",
-    "@iconify-json/simple-icons": "^1.2.79"
+    "@iconify-json/simple-icons": "^1.2.79",
+    "prettier": "^3.4.0",
+    "prettier-plugin-astro": "^0.14.0"
   }
 }

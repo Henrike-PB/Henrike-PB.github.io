@@ -2,7 +2,7 @@
 import { Icon } from 'astro-icon/components';
 import { personal } from '@/data/personal';
 
-const [, ...restBio] = personal.bio;
+const paragraphs = personal.bio.paragraphs;
 ---
 
 <section id="sobre" class="section">
@@ -15,10 +15,10 @@ const [, ...restBio] = personal.bio;
     </div>
 
     <div class="about-body">
-      {restBio.map((p) => <p>{p}</p>)}
+      {paragraphs.map((p) => <p>{p}</p>)}
 
       <div class="about-cards">
-        <a class="about-card" href={personal.contacts.linkedin} target="_blank" rel="noopener">
+        <a class="about-card" href={personal.contacts.linkedin} target="_blank" rel="me noopener">
           <Icon name="simple-icons:linkedin" />
           <div>
             <h3>LinkedIn</h3>
@@ -30,7 +30,7 @@ const [, ...restBio] = personal.bio;
           class="about-card"
           href={personal.contacts.photographyPortfolio}
           target="_blank"
-          rel="noopener"
+          rel="me noopener"
         >
           <Icon name="lucide:camera" />
           <div>
@@ -91,7 +91,10 @@ const [, ...restBio] = personal.bio;
     background: var(--bg-card);
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
-    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    transition:
+      transform 0.2s ease,
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
   }
   .about-card:hover {
     transform: translateY(-3px);
