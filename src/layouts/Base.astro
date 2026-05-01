@@ -9,43 +9,32 @@ type Props = {
 };
 
 const {
-  title = `${personal.name} · Engenheiro de Dados | Python, AWS, Airflow`,
-  description = 'Portfólio oficial de Henrike Pajares Braga, Engenheiro de Dados em Porto Alegre. Construo pipelines de ETL com PySpark, Airflow e AWS, APIs em FastAPI e modelagem em Redshift e DynamoDB.',
+  title = `${personal.name} · Engenheiro de Dados em Porto Alegre`,
+  description = 'Portfólio de Henrike Pajares Braga, Engenheiro de Dados em Porto Alegre. Pipelines de ETL com PySpark, Airflow e AWS, APIs em FastAPI, Redshift e DynamoDB.',
   image = '/og-image.jpg',
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const ogImage = new URL(image, Astro.site).toString();
-
-const keywords = [
-  'Henrike Pajares Braga',
-  'Henrike Braga',
-  'Henrike PB',
-  'Engenheiro de Dados Porto Alegre',
-  'Data Engineer Brasil',
-  'PySpark',
-  'Airflow',
-  'AWS',
-  'FastAPI',
-  'Python',
-  'Appmax',
-  'portfólio desenvolvedor',
-];
+const portraitImage = new URL('/profile.jpg', Astro.site).toString();
 
 const personSchema = {
   '@context': 'https://schema.org',
   '@type': 'Person',
+  '@id': `${canonicalURL.toString()}#henrike`,
   name: personal.name,
   alternateName: [personal.shortName, 'Henrike Braga'],
   givenName: 'Henrike',
   familyName: 'Pajares Braga',
   url: canonicalURL.toString(),
-  image: ogImage,
+  image: portraitImage,
   jobTitle: 'Engenheiro de Dados',
   description,
-  worksFor: { '@type': 'Organization', name: 'Appmax' },
+  worksFor: { '@type': 'Organization', name: 'Appmax', url: 'https://appmax.com.br' },
   birthDate: personal.birthDate.slice(0, 10),
   birthPlace: { '@type': 'Place', name: 'Porto Alegre, RS, Brasil' },
+  nationality: { '@type': 'Country', name: 'Brasil' },
+  knowsLanguage: ['Portuguese', 'English'],
   email: `mailto:${personal.contacts.email}`,
   address: {
     '@type': 'PostalAddress',
@@ -78,6 +67,17 @@ const personSchema = {
   ],
 };
 
+const profilePageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfilePage',
+  url: canonicalURL.toString(),
+  name: `${personal.name} · Portfólio`,
+  description,
+  inLanguage: 'pt-BR',
+  mainEntity: { '@id': `${canonicalURL.toString()}#henrike` },
+  about: { '@id': `${canonicalURL.toString()}#henrike` },
+};
+
 const websiteSchema = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
@@ -94,11 +94,11 @@ const websiteSchema = {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
+    <meta name="google-site-verification" content="tY7-pwTszIPMR5z2MVAoHn3RXoAFXIz2v8P4Yt0ceXM" />
     <link rel="canonical" href={canonicalURL} />
 
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="keywords" content={keywords.join(', ')} />
     <meta name="author" content={personal.name} />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
     <meta name="googlebot" content="index, follow" />
@@ -132,6 +132,7 @@ const websiteSchema = {
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
 
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(profilePageSchema)} />
     <script is:inline type="application/ld+json" set:html={JSON.stringify(personSchema)} />
     <script is:inline type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
 
@@ -155,30 +156,25 @@ const websiteSchema = {
   </head>
 
   <body>
-    <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:p-2 focus:bg-[var(--bg-card)] focus:text-[var(--fg)] focus:border focus:border-[var(--border-strong)] focus:rounded">
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:p-2 focus:bg-[var(--bg-card)] focus:text-[var(--fg)] focus:border focus:border-[var(--border-strong)] focus:rounded"
+    >
       Pular para o conteúdo
     </a>
 
     <slot />
 
-    <script is:inline>
-      (function () {
-        const BIRTH = '2001-09-01T16:00:00-03:00';
-        function age() {
-          const now = new Date();
-          const birth = new Date(BIRTH);
-          let a = now.getFullYear() - birth.getFullYear();
-          const m = now.getMonth() - birth.getMonth();
-          if (m < 0 || (m === 0 && now.getDate() < birth.getDate())) a -= 1;
-          return a;
-        }
-        document.querySelectorAll('[data-age]').forEach((el) => {
-          el.textContent = String(age());
-        });
-        document.querySelectorAll('[data-current-year]').forEach((el) => {
-          el.textContent = String(new Date().getFullYear());
-        });
-      })();
+    <script>
+      import { computeAge, currentYear } from '@/lib/age';
+      import { personal } from '@/data/personal';
+
+      document.querySelectorAll('[data-age]').forEach((el) => {
+        el.textContent = String(computeAge(personal.birthDate));
+      });
+      document.querySelectorAll('[data-current-year]').forEach((el) => {
+        el.textContent = String(currentYear());
+      });
     </script>
   </body>
 </html>

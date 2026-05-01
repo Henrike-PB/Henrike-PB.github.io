@@ -8,5 +8,5 @@
     "verbatimModuleSyntax": true
   },
   "include": [".astro/types.d.ts", "src/**/*", "astro.config.mjs"],
-  "exclude": ["dist", "node_modules", "script.js", "app.js", "darkmode.js"]
+  "exclude": ["dist", "node_modules"]
 }

@@ -4,10 +4,10 @@ import { Icon } from 'astro-icon/components';
 import { personal } from '@/data/personal';
 import { currentPrimaryRole } from '@/lib/experience';
 import { computeAge } from '@/lib/age';
-import profilePhoto from '@/assets/profile.png';
+import profilePhoto from '@/assets/profile.jpg';
 
 const role = currentPrimaryRole();
-const [firstParagraph] = personal.bio;
+const heroIntro = personal.bio.heroIntro;
 const initialAge = computeAge(personal.birthDate);
 ---
 
@@ -24,7 +24,15 @@ const initialAge = computeAge(personal.birthDate);
       </h1>
 
       <p class="hero-role">
-        {role ? <>{role.title} <span class="dim">@</span> <strong>{role.company}</strong></> : personal.tagline}
+        {
+          role ? (
+            <>
+              {role.title} <span class="dim">@</span> <strong>{role.company}</strong>
+            </>
+          ) : (
+            personal.tagline
+          )
+        }
       </p>
 
       <p class="hero-meta">
@@ -33,7 +41,7 @@ const initialAge = computeAge(personal.birthDate);
         <span>{personal.location}</span>
       </p>
 
-      <p class="hero-bio">{firstParagraph}</p>
+      <p class="hero-bio">{heroIntro}</p>
 
       <div class="hero-cta">
         <a href="#contato" class="btn btn-primary">
@@ -48,17 +56,27 @@ const initialAge = computeAge(personal.birthDate);
 
       <ul class="hero-social" aria-label="Redes sociais">
         <li>
-          <a href={personal.contacts.linkedin} target="_blank" rel="noopener" aria-label="LinkedIn">
+          <a
+            href={personal.contacts.linkedin}
+            target="_blank"
+            rel="me noopener"
+            aria-label="LinkedIn"
+          >
             <Icon name="simple-icons:linkedin" />
           </a>
         </li>
         <li>
-          <a href={personal.contacts.github} target="_blank" rel="noopener" aria-label="GitHub">
+          <a href={personal.contacts.github} target="_blank" rel="me noopener" aria-label="GitHub">
             <Icon name="simple-icons:github" />
           </a>
         </li>
         <li>
-          <a href={personal.contacts.instagram} target="_blank" rel="noopener" aria-label="Instagram">
+          <a
+            href={personal.contacts.instagram}
+            target="_blank"
+            rel="me noopener"
+            aria-label="Instagram"
+          >
             <Icon name="simple-icons:instagram" />
           </a>
         </li>
@@ -69,7 +87,7 @@ const initialAge = computeAge(personal.birthDate);
       <div class="photo-frame">
         <Picture
           src={profilePhoto}
-          alt={`Foto de ${personal.name}`}
+          alt={`${personal.name}, Engenheiro de Dados em Porto Alegre`}
           widths={[320, 480, 720, 960]}
           sizes="(max-width: 900px) 22rem, 22rem"
           formats={['avif', 'webp']}
@@ -117,8 +135,8 @@ const initialAge = computeAge(personal.birthDate);
     width: 0.5rem;
     height: 0.5rem;
     border-radius: 50%;
-    background: #22c55e;
-    box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.18);
+    background: var(--success);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--success) 18%, transparent);
   }
 
   .hero-name {
@@ -189,7 +207,10 @@ const initialAge = computeAge(personal.birthDate);
     background: var(--bg-elevated);
     color: var(--fg-muted);
     border: 1px solid var(--border);
-    transition: color 0.2s, transform 0.2s, background-color 0.2s;
+    transition:
+      color 0.2s,
+      transform 0.2s,
+      background-color 0.2s;
   }
   .hero-social a:hover {
     color: var(--accent);
