@@ -1,17 +1,28 @@
 ---
 import { Icon } from 'astro-icon/components';
 import { education } from '@/data/education';
+import { ui } from '@/i18n/ui';
+import type { Locale } from '@/lib/i18n';
+import { DEFAULT_LOCALE } from '@/lib/i18n';
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = DEFAULT_LOCALE } = Astro.props;
 ---
 
 <section id="educacao" class="section">
   <div class="container-page">
     <div class="edu-header">
-      <span class="section-eyebrow">Formação</span>
+      <span class="section-eyebrow">{ui.education.eyebrow[locale]}</span>
       <h2 class="heading-section">
-        A formação que me <span class="accent">trouxe até aqui</span>.
+        {ui.education.headingPrefix[locale]}{' '}
+        <span class="accent">{ui.education.headingAccent[locale]}</span
+        >{ui.education.headingSuffix[locale]}
       </h2>
       <p class="edu-intro">
-        Os programas e cursos que construíram a base técnica e a mentalidade que carrego hoje.
+        {ui.education.intro[locale]}
       </p>
     </div>
 
@@ -27,7 +38,7 @@ import { education } from '@/data/education';
                 <span class="edu-years">
                   {e.startYear} · {e.endYear}
                 </span>
-                {e.current && <span class="edu-tag">cursando</span>}
+                {e.current && <span class="edu-tag">{ui.education.ongoing[locale]}</span>}
               </div>
               <h3>
                 {e.url ? (
@@ -38,7 +49,7 @@ import { education } from '@/data/education';
                   e.institution
                 )}
               </h3>
-              <p>{e.degree}</p>
+              <p>{e.degree[locale]}</p>
             </div>
           </li>
         ))

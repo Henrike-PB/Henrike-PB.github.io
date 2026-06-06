@@ -1,16 +1,26 @@
 ---
 import { Icon } from 'astro-icon/components';
 import { personal } from '@/data/personal';
+import { ui } from '@/i18n/ui';
+import type { Locale } from '@/lib/i18n';
+import { DEFAULT_LOCALE } from '@/lib/i18n';
 
-const paragraphs = personal.bio.paragraphs;
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = DEFAULT_LOCALE } = Astro.props;
+
+const paragraphs = personal.bio.paragraphs[locale];
 ---
 
 <section id="sobre" class="section">
   <div class="container-page about-grid">
     <div class="about-heading">
-      <span class="section-eyebrow">Sobre mim</span>
+      <span class="section-eyebrow">{ui.about.eyebrow[locale]}</span>
       <h2 class="heading-section">
-        Carreira em <span class="accent">dados</span>, paixão por construir.
+        {ui.about.headingPrefix[locale]}{' '}
+        <span class="accent">{ui.about.headingAccent[locale]}</span>{ui.about.headingSuffix[locale]}
       </h2>
     </div>
 
@@ -21,7 +31,7 @@ const paragraphs = personal.bio.paragraphs;
         <a class="about-card" href={personal.contacts.linkedin} target="_blank" rel="me noopener">
           <Icon name="simple-icons:linkedin" />
           <div>
-            <h3>LinkedIn</h3>
+            <h3>{ui.about.linkedinTitle[locale]}</h3>
             <p>linkedin.com/in/henrikebraga</p>
           </div>
         </a>
@@ -34,8 +44,8 @@ const paragraphs = personal.bio.paragraphs;
         >
           <Icon name="lucide:camera" />
           <div>
-            <h3>Portfólio de Fotografia</h3>
-            <p>Hobby que me acompanha. Registros da turma do Geração Caldeira 2024 e mais.</p>
+            <h3>{ui.about.photographyTitle[locale]}</h3>
+            <p>{ui.about.photographyDesc[locale]}</p>
           </div>
         </a>
       </div>

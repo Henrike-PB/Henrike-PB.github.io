@@ -1,3 +1,5 @@
+import type { Localized } from '@/lib/i18n';
+
 export type TechItem = {
   name: string;
   icon?: string;
@@ -5,17 +7,20 @@ export type TechItem = {
 
 export type TechGroup = {
   id: string;
-  title: string;
-  description: string;
+  title: Localized<string>;
+  description: Localized<string>;
   items: TechItem[];
 };
 
 export const techStack: TechGroup[] = [
   {
     id: 'data',
-    title: 'Engenharia de Dados',
-    description:
-      'Stack do dia a dia: pipelines de ETL, orquestração, APIs internas e processamento em escala.',
+    title: { 'pt-BR': 'Engenharia de Dados', en: 'Data Engineering' },
+    description: {
+      'pt-BR':
+        'Stack do dia a dia: pipelines de ETL, orquestração, APIs internas e processamento em escala.',
+      en: 'Daily stack: ETL pipelines, orchestration, internal APIs and processing at scale.',
+    },
     items: [
       { name: 'Python', icon: 'simple-icons:python' },
       { name: 'PySpark', icon: 'simple-icons:apachespark' },
@@ -31,9 +36,12 @@ export const techStack: TechGroup[] = [
   },
   {
     id: 'languages',
-    title: 'Linguagens',
-    description:
-      'Linguagens que uso para escrever código profissionalmente. Python é hoje minha principal.',
+    title: { 'pt-BR': 'Linguagens', en: 'Languages' },
+    description: {
+      'pt-BR':
+        'Linguagens que uso para escrever código profissionalmente. Python é hoje minha principal.',
+      en: 'Languages I use to write production code. Python is my main one today.',
+    },
     items: [
       { name: 'Python', icon: 'simple-icons:python' },
       { name: 'SQL', icon: 'lucide:database' },
@@ -43,9 +51,12 @@ export const techStack: TechGroup[] = [
   },
   {
     id: 'web',
-    title: 'Web',
-    description:
-      'Bagagem do desenvolvimento web full stack adquirida no IOS. Fundamentos que continuam relevantes.',
+    title: { 'pt-BR': 'Web', en: 'Web' },
+    description: {
+      'pt-BR':
+        'Bagagem do desenvolvimento web full stack adquirida no IOS. Fundamentos que continuam relevantes.',
+      en: 'Background from full-stack web development at IOS. Foundations that remain relevant.',
+    },
     items: [
       { name: 'HTML', icon: 'simple-icons:html5' },
       { name: 'CSS', icon: 'simple-icons:css3' },
@@ -56,9 +67,12 @@ export const techStack: TechGroup[] = [
   },
   {
     id: 'tools',
-    title: 'Ferramentas & Plataformas',
-    description:
-      'Ferramentas de versionamento, conteinerização, sistemas operacionais e plataformas de trabalho.',
+    title: { 'pt-BR': 'Ferramentas & Plataformas', en: 'Tools & Platforms' },
+    description: {
+      'pt-BR':
+        'Ferramentas de versionamento, conteinerização, sistemas operacionais e plataformas de trabalho.',
+      en: 'Versioning, containerization, operating systems and work platforms.',
+    },
     items: [
       { name: 'Git', icon: 'simple-icons:git' },
       { name: 'GitHub', icon: 'simple-icons:github' },

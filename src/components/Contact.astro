@@ -1,17 +1,28 @@
 ---
 import { Icon } from 'astro-icon/components';
 import { personal } from '@/data/personal';
+import { ui } from '@/i18n/ui';
+import type { Locale } from '@/lib/i18n';
+import { DEFAULT_LOCALE } from '@/lib/i18n';
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = DEFAULT_LOCALE } = Astro.props;
 ---
 
 <section id="contato" class="section">
   <div class="container-page">
     <div class="contact-header">
-      <span class="section-eyebrow">Contato</span>
+      <span class="section-eyebrow">{ui.contact.eyebrow[locale]}</span>
       <h2 class="heading-section">
-        Vamos <span class="accent">conversar</span>?
+        {ui.contact.headingPrefix[locale]}{' '}
+        <span class="accent">{ui.contact.headingAccent[locale]}</span
+        >{ui.contact.headingSuffix[locale]}
       </h2>
       <p class="contact-intro">
-        Aberto a oportunidades, parcerias e conversas sobre tecnologia. Respondo o quanto antes.
+        {ui.contact.intro[locale]}
       </p>
     </div>
 
@@ -20,7 +31,7 @@ import { personal } from '@/data/personal';
         <a href={`mailto:${personal.contacts.email}`} class="contact-direct">
           <Icon name="lucide:mail" />
           <div>
-            <span>Email</span>
+            <span>{ui.contact.emailLabel[locale]}</span>
             <strong>{personal.contacts.email}</strong>
           </div>
         </a>
@@ -32,14 +43,14 @@ import { personal } from '@/data/personal';
         >
           <Icon name="simple-icons:linkedin" />
           <div>
-            <span>LinkedIn</span>
+            <span>{ui.contact.linkedinLabel[locale]}</span>
             <strong>/in/henrikebraga</strong>
           </div>
         </a>
         <a href={personal.contacts.github} target="_blank" rel="me noopener" class="contact-direct">
           <Icon name="simple-icons:github" />
           <div>
-            <span>GitHub</span>
+            <span>{ui.contact.githubLabel[locale]}</span>
             <strong>@Henrike-PB</strong>
           </div>
         </a>
@@ -50,8 +61,11 @@ import { personal } from '@/data/personal';
         class="contact-form"
         action={personal.formSubmitEndpoint}
         method="POST"
+        data-status-sending={ui.contact.statusSending[locale]}
+        data-status-ok={ui.contact.statusOk[locale]}
+        data-status-error={ui.contact.statusError[locale]}
       >
-        <input type="hidden" name="_subject" value="Contato via portfólio" />
+        <input type="hidden" name="_subject" value={ui.contact.formSubject[locale]} />
         <input
           type="text"
           name="_honey"
@@ -62,42 +76,42 @@ import { personal } from '@/data/personal';
         />
 
         <div class="field">
-          <label for="contact-name">Nome</label>
+          <label for="contact-name">{ui.contact.fieldName[locale]}</label>
           <input
             id="contact-name"
             name="name"
             type="text"
-            placeholder="Como posso te chamar?"
+            placeholder={ui.contact.fieldNamePh[locale]}
             required
             autocomplete="name"
           />
         </div>
 
         <div class="field">
-          <label for="contact-email">Email</label>
+          <label for="contact-email">{ui.contact.fieldEmail[locale]}</label>
           <input
             id="contact-email"
             name="email"
             type="email"
-            placeholder="seu@email.com"
+            placeholder={ui.contact.fieldEmailPh[locale]}
             required
             autocomplete="email"
           />
         </div>
 
         <div class="field">
-          <label for="contact-message">Mensagem</label>
+          <label for="contact-message">{ui.contact.fieldMessage[locale]}</label>
           <textarea
             id="contact-message"
             name="message"
             rows="5"
-            placeholder="Conta o que você gostaria de propor ou perguntar..."
+            placeholder={ui.contact.fieldMessagePh[locale]}
             required></textarea>
         </div>
 
         <button type="submit" class="btn btn-primary contact-submit">
           <Icon name="lucide:send" />
-          Enviar mensagem
+          {ui.contact.submit[locale]}
         </button>
 
         <p class="form-status" data-form-status aria-live="polite"></p>
@@ -112,11 +126,15 @@ import { personal } from '@/data/personal';
     const status = document.querySelector('[data-form-status]');
     if (!form || !status) return;
 
+    const msgSending = form.dataset.statusSending || 'Enviando...';
+    const msgOk = form.dataset.statusOk || 'Mensagem enviada!';
+    const msgError = form.dataset.statusError || 'Algo deu errado.';
+
     form.addEventListener('submit', async (event) => {
       event.preventDefault();
       const submit = form.querySelector('button[type="submit"]');
       submit.setAttribute('disabled', 'true');
-      status.textContent = 'Enviando...';
+      status.textContent = msgSending;
       status.dataset.kind = 'pending';
 
       try {
@@ -126,12 +144,12 @@ import { personal } from '@/data/personal';
           body: data,
           headers: { Accept: 'application/json' },
         });
-        if (!res.ok) throw new Error('Falha no envio');
+        if (!res.ok) throw new Error('Submit failed');
         form.reset();
-        status.textContent = 'Mensagem enviada! Te respondo assim que possível.';
+        status.textContent = msgOk;
         status.dataset.kind = 'ok';
       } catch (err) {
-        status.textContent = 'Algo deu errado. Tente de novo ou me chame por email.';
+        status.textContent = msgError;
         status.dataset.kind = 'error';
       } finally {
         submit.removeAttribute('disabled');

@@ -1,39 +1,48 @@
 ---
 import { Image } from 'astro:assets';
 import { Icon } from 'astro-icon/components';
-import { projects, projectCategories } from '@/data/projects';
+import { projects, projectCategoryIds } from '@/data/projects';
+import { ui } from '@/i18n/ui';
+import type { Locale } from '@/lib/i18n';
+import { DEFAULT_LOCALE } from '@/lib/i18n';
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = DEFAULT_LOCALE } = Astro.props;
 ---
 
 <section id="projetos" class="section">
   <div class="container-page">
     <div class="projects-header">
-      <span class="section-eyebrow">Projetos</span>
+      <span class="section-eyebrow">{ui.projects.eyebrow[locale]}</span>
       <h2 class="heading-section">
-        Projetos que <span class="accent">desenvolvi</span>.
+        {ui.projects.headingPrefix[locale]}{' '}
+        <span class="accent">{ui.projects.headingAccent[locale]}</span
+        >{ui.projects.headingSuffix[locale]}
       </h2>
       <p class="projects-intro">
-        Alguns projetos realizados durante o curso do IOS, junto com o desafio final do Geração
-        Caldeira 2024 em Python e Machine Learning. Em breve, projetos pessoais de engenharia de
-        dados.
+        {ui.projects.intro[locale]}
       </p>
     </div>
 
-    <div class="projects-filter" role="group" aria-label="Filtrar projetos por categoria">
+    <div class="projects-filter" role="group" aria-label={ui.projects.filterAria[locale]}>
       {
-        projectCategories.map((cat, i) => (
+        projectCategoryIds.map((id, i) => (
           <button
             type="button"
             class={i === 0 ? 'active' : ''}
             aria-pressed={i === 0 ? 'true' : 'false'}
-            data-filter={cat.id}
+            data-filter={id}
           >
-            {cat.label}
+            {ui.projects.category[id][locale]}
           </button>
         ))
       }
     </div>
 
-    <ul class="projects-grid" role="list" aria-label="Lista de projetos">
+    <ul class="projects-grid" role="list" aria-label={ui.projects.listAria[locale]}>
       {
         projects.map((p) => (
           <li class="project-card" data-category={p.category}>
@@ -41,7 +50,7 @@ import { projects, projectCategories } from '@/data/projects';
               {p.image ? (
                 <Image
                   src={p.image}
-                  alt={`Captura do projeto ${p.name}`}
+                  alt={`${ui.projects.altPrefix[locale]} ${p.name}`}
                   widths={[320, 480, 640]}
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   format="webp"
@@ -54,17 +63,17 @@ import { projects, projectCategories } from '@/data/projects';
                   <Icon name={p.icon ?? 'lucide:layers'} />
                 </div>
               )}
-              {p.featured && <span class="project-badge">Destaque</span>}
+              {p.featured && <span class="project-badge">{ui.projects.featured[locale]}</span>}
             </div>
             <div class="project-body">
               <h3>{p.name}</h3>
               {p.partner && (
                 <p class="project-partner">
-                  <Icon name="lucide:users" /> com {p.partner}
+                  <Icon name="lucide:users" /> {ui.projects.withCollaborators[locale]} {p.partner}
                 </p>
               )}
-              <p class="project-desc">{p.description}</p>
-              {p.note && <p class="project-note">{p.note}</p>}
+              <p class="project-desc">{p.description[locale]}</p>
+              {p.note && <p class="project-note">{p.note[locale]}</p>}
               <ul class="project-tech" role="list">
                 {p.tech.map((t) => (
                   <li>{t}</li>
@@ -78,10 +87,10 @@ import { projects, projectCategories } from '@/data/projects';
                       target="_blank"
                       rel="noopener"
                       class="project-link"
-                      aria-label={`Visitar ${p.name}`}
+                      aria-label={`${ui.projects.seeProjectAria[locale]} ${p.name}`}
                     >
                       <Icon name="lucide:external-link" />
-                      Ver projeto
+                      {ui.projects.seeProject[locale]}
                     </a>
                   )}
                   {p.repoUrl && (
@@ -90,10 +99,10 @@ import { projects, projectCategories } from '@/data/projects';
                       target="_blank"
                       rel="noopener"
                       class="project-link ghost"
-                      aria-label={`Repositório de ${p.name}`}
+                      aria-label={`${ui.projects.seeRepoAria[locale]} ${p.name}`}
                     >
                       <Icon name="simple-icons:github" />
-                      Repositório
+                      {ui.projects.seeRepo[locale]}
                     </a>
                   )}
                 </div>

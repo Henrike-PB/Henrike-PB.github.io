@@ -1,35 +1,51 @@
 ---
 import '@/styles/global.css';
 import { personal } from '@/data/personal';
+import { ui } from '@/i18n/ui';
+import {
+  DEFAULT_LOCALE,
+  htmlLang,
+  localePath,
+  ogLocale,
+  LOCALES,
+  type Locale,
+} from '@/lib/i18n';
 
 type Props = {
   title?: string;
   description?: string;
   image?: string;
+  locale?: Locale;
 };
 
 const {
-  title = `${personal.name} · Engenheiro de Dados em Porto Alegre`,
-  description = 'Portfólio de Henrike Pajares Braga, Engenheiro de Dados em Porto Alegre. Pipelines de ETL com PySpark, Airflow e AWS, APIs em FastAPI, Redshift e DynamoDB.',
+  title = ui.meta.title[DEFAULT_LOCALE],
+  description = ui.meta.description[DEFAULT_LOCALE],
   image = '/og-image.jpg',
+  locale = DEFAULT_LOCALE,
 } = Astro.props;
+
+const resolvedTitle = title;
+const resolvedDescription = description;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const ogImage = new URL(image, Astro.site).toString();
 const portraitImage = new URL('/profile.jpg', Astro.site).toString();
 
+const homeForLocale = (l: Locale) => new URL(localePath('/', l), Astro.site).toString();
+
 const personSchema = {
   '@context': 'https://schema.org',
   '@type': 'Person',
-  '@id': `${canonicalURL.toString()}#henrike`,
+  '@id': `${homeForLocale(DEFAULT_LOCALE)}#henrike`,
   name: personal.name,
   alternateName: [personal.shortName, 'Henrike Braga'],
   givenName: 'Henrike',
   familyName: 'Pajares Braga',
-  url: canonicalURL.toString(),
+  url: homeForLocale(DEFAULT_LOCALE),
   image: portraitImage,
-  jobTitle: 'Engenheiro de Dados',
-  description,
+  jobTitle: personal.jobTitle[locale],
+  description: resolvedDescription,
   worksFor: { '@type': 'Organization', name: 'Appmax', url: 'https://appmax.com.br' },
   birthDate: personal.birthDate.slice(0, 10),
   birthPlace: { '@type': 'Place', name: 'Porto Alegre, RS, Brasil' },
@@ -43,7 +59,7 @@ const personSchema = {
     addressCountry: 'BR',
   },
   knowsAbout: [
-    'Engenharia de Dados',
+    'Data Engineering',
     'Python',
     'PySpark',
     'Apache Airflow',
@@ -71,25 +87,25 @@ const profilePageSchema = {
   '@context': 'https://schema.org',
   '@type': 'ProfilePage',
   url: canonicalURL.toString(),
-  name: `${personal.name} · Portfólio`,
-  description,
-  inLanguage: 'pt-BR',
-  mainEntity: { '@id': `${canonicalURL.toString()}#henrike` },
-  about: { '@id': `${canonicalURL.toString()}#henrike` },
+  name: `${personal.name} · Portfolio`,
+  description: resolvedDescription,
+  inLanguage: htmlLang(locale),
+  mainEntity: { '@id': `${homeForLocale(DEFAULT_LOCALE)}#henrike` },
+  about: { '@id': `${homeForLocale(DEFAULT_LOCALE)}#henrike` },
 };
 
 const websiteSchema = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
-  url: canonicalURL.toString(),
-  name: `${personal.name} · Portfólio`,
-  inLanguage: 'pt-BR',
+  url: homeForLocale(DEFAULT_LOCALE),
+  name: `${personal.name} · Portfolio`,
+  inLanguage: htmlLang(locale),
   author: { '@type': 'Person', name: personal.name },
 };
 ---
 
 <!doctype html>
-<html lang="pt-BR">
+<html lang={htmlLang(locale)}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -97,8 +113,15 @@ const websiteSchema = {
     <meta name="google-site-verification" content="tY7-pwTszIPMR5z2MVAoHn3RXoAFXIz2v8P4Yt0ceXM" />
     <link rel="canonical" href={canonicalURL} />
 
-    <title>{title}</title>
-    <meta name="description" content={description} />
+    {
+      LOCALES.map((l) => (
+        <link rel="alternate" hreflang={htmlLang(l)} href={homeForLocale(l)} />
+      ))
+    }
+    <link rel="alternate" hreflang="x-default" href={homeForLocale(DEFAULT_LOCALE)} />
+
+    <title>{resolvedTitle}</title>
+    <meta name="description" content={resolvedDescription} />
     <meta name="author" content={personal.name} />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
     <meta name="googlebot" content="index, follow" />
@@ -111,22 +134,27 @@ const websiteSchema = {
 
     <meta property="og:type" content="profile" />
     <meta property="og:url" content={canonicalURL} />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
+    <meta property="og:title" content={resolvedTitle} />
+    <meta property="og:description" content={resolvedDescription} />
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content={`Foto de ${personal.name}, Engenheiro de Dados`} />
-    <meta property="og:locale" content="pt_BR" />
-    <meta property="og:site_name" content={`${personal.name} · Portfólio`} />
+    <meta property="og:image:alt" content={ui.meta.ogImageAlt[locale]} />
+    <meta property="og:locale" content={ogLocale(locale)} />
+    {
+      LOCALES.filter((l) => l !== locale).map((l) => (
+        <meta property="og:locale:alternate" content={ogLocale(l)} />
+      ))
+    }
+    <meta property="og:site_name" content={`${personal.name} · Portfolio`} />
     <meta property="profile:first_name" content="Henrike" />
     <meta property="profile:last_name" content="Pajares Braga" />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
+    <meta name="twitter:title" content={resolvedTitle} />
+    <meta name="twitter:description" content={resolvedDescription} />
     <meta name="twitter:image" content={ogImage} />
-    <meta name="twitter:image:alt" content={`Foto de ${personal.name}`} />
+    <meta name="twitter:image:alt" content={ui.meta.ogImageAlt[locale]} />
 
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -156,12 +184,7 @@ const websiteSchema = {
   </head>
 
   <body>
-    <a
-      href="#main"
-      class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:p-2 focus:bg-[var(--bg-card)] focus:text-[var(--fg)] focus:border focus:border-[var(--border-strong)] focus:rounded"
-    >
-      Pular para o conteúdo
-    </a>
+    <a href="#main" class="skip-link">{ui.meta.skipToContent[locale]}</a>
 
     <slot />
 

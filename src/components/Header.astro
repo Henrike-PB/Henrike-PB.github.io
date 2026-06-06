@@ -1,24 +1,39 @@
 ---
 import { Icon } from 'astro-icon/components';
+import { ui } from '@/i18n/ui';
+import type { Locale } from '@/lib/i18n';
+import { DEFAULT_LOCALE, localePath, otherLocale } from '@/lib/i18n';
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = DEFAULT_LOCALE } = Astro.props;
+
+const home = localePath('/', locale);
 
 const navItems = [
-  { href: '#sobre', label: 'Sobre' },
-  { href: '#experiencia', label: 'Trajetória' },
-  { href: '#stack', label: 'Stack' },
-  { href: '#projetos', label: 'Projetos' },
-  { href: '#voluntariado', label: 'Voluntariado' },
-  { href: '#educacao', label: 'Formação' },
-  { href: '#contato', label: 'Contato' },
+  { href: `${home}#sobre`, label: ui.header.nav.about[locale] },
+  { href: `${home}#experiencia`, label: ui.header.nav.experience[locale] },
+  { href: `${home}#stack`, label: ui.header.nav.stack[locale] },
+  { href: `${home}#projetos`, label: ui.header.nav.projects[locale] },
+  { href: `${home}#voluntariado`, label: ui.header.nav.volunteer[locale] },
+  { href: `${home}#educacao`, label: ui.header.nav.education[locale] },
+  { href: `${home}#contato`, label: ui.header.nav.contact[locale] },
 ];
+
+const other = otherLocale(locale);
+const otherHome = localePath('/', other);
+const otherLabel = other === 'en' ? 'EN' : 'PT';
 ---
 
 <header class="site-header">
   <div class="container-page header-inner">
-    <a href="#hero" class="brand" aria-label="Voltar ao topo">
+    <a href={`${home}#hero`} class="brand" aria-label={ui.header.backToTop[locale]}>
       <span class="brand-mark brand-mark--sm">HPB</span>
     </a>
 
-    <nav class="nav-desktop" aria-label="Navegação principal">
+    <nav class="nav-desktop" aria-label={ui.header.primaryNav[locale]}>
       <ul>
         {
           navItems.map((item) => (
@@ -31,11 +46,24 @@ const navItems = [
     </nav>
 
     <div class="header-actions">
+      <a
+        href={otherHome}
+        class="lang-switch"
+        aria-label={ui.header.switchLanguageTo[locale]}
+        hreflang={other === 'en' ? 'en' : 'pt-BR'}
+        data-lang-switch
+      >
+        <Icon name="lucide:globe" aria-hidden="true" />
+        <span>{otherLabel}</span>
+      </a>
+
       <button
         type="button"
         class="theme-toggle"
-        aria-label="Alternar para modo escuro"
+        aria-label={ui.header.toggleToDark[locale]}
         data-theme-toggle
+        data-label-dark={ui.header.toggleToDark[locale]}
+        data-label-light={ui.header.toggleToLight[locale]}
       >
         <Icon name="lucide:sun" class="icon-sun" />
         <Icon name="lucide:moon" class="icon-moon" />
@@ -44,17 +72,25 @@ const navItems = [
       <button
         type="button"
         class="menu-toggle"
-        aria-label="Abrir menu"
+        aria-label={ui.header.openMenu[locale]}
         aria-expanded="false"
         aria-controls="mobile-nav"
         data-menu-toggle
+        data-label-open={ui.header.openMenu[locale]}
+        data-label-close={ui.header.closeMenu[locale]}
       >
         <span></span><span></span><span></span>
       </button>
     </div>
   </div>
 
-  <nav id="mobile-nav" class="nav-mobile" aria-label="Navegação móvel" data-mobile-nav>
+  <nav
+    id="mobile-nav"
+    class="nav-mobile"
+    aria-label={ui.header.mobileNav[locale]}
+    data-mobile-nav
+    inert
+  >
     <ul>
       {
         navItems.map((item) => (
@@ -76,10 +112,9 @@ const navItems = [
     function syncToggleLabel() {
       if (!toggle) return;
       const isDark = root.classList.contains('dark');
-      toggle.setAttribute(
-        'aria-label',
-        isDark ? 'Alternar para modo claro' : 'Alternar para modo escuro',
-      );
+      const labelDark = toggle.getAttribute('data-label-dark') || 'Switch to dark mode';
+      const labelLight = toggle.getAttribute('data-label-light') || 'Switch to light mode';
+      toggle.setAttribute('aria-label', isDark ? labelLight : labelDark);
     }
     if (toggle) {
       syncToggleLabel();
@@ -96,11 +131,15 @@ const navItems = [
     const nav = document.querySelector('[data-mobile-nav]');
     const main = document.getElementById('main');
     if (menu && nav) {
+      const labelOpen = menu.getAttribute('data-label-open') || 'Open menu';
+      const labelClose = menu.getAttribute('data-label-close') || 'Close menu';
       const isOpen = () => menu.classList.contains('open');
       function open() {
         menu.classList.add('open');
         menu.setAttribute('aria-expanded', 'true');
+        menu.setAttribute('aria-label', labelClose);
         nav.classList.add('open');
+        nav.removeAttribute('inert');
         document.body.style.overflow = 'hidden';
         if (main) main.setAttribute('inert', '');
         nav.querySelector('a')?.focus();
@@ -108,12 +147,14 @@ const navItems = [
       function close() {
         menu.classList.remove('open');
         menu.setAttribute('aria-expanded', 'false');
+        menu.setAttribute('aria-label', labelOpen);
         nav.classList.remove('open');
         document.body.style.overflow = '';
         if (main) main.removeAttribute('inert');
         if (document.activeElement && nav.contains(document.activeElement)) {
           menu.focus();
         }
+        nav.setAttribute('inert', '');
       }
       menu.addEventListener('click', (e) => {
         e.stopPropagation();
@@ -146,13 +187,14 @@ const navItems = [
     );
 
     const navLinks = document.querySelectorAll(
-      '.nav-desktop a[href^="#"], .nav-mobile a[href^="#"]',
+      '.nav-desktop a[href*="#"], .nav-mobile a[href*="#"]',
     );
     const linkMap = new Map();
     navLinks.forEach((link) => {
-      const href = link.getAttribute('href');
-      if (href && href.length > 1) {
-        const id = href.slice(1);
+      const href = link.getAttribute('href') || '';
+      const hashIndex = href.indexOf('#');
+      if (hashIndex >= 0 && hashIndex < href.length - 1) {
+        const id = href.slice(hashIndex + 1);
         if (!linkMap.has(id)) linkMap.set(id, []);
         linkMap.get(id).push(link);
       }
@@ -266,11 +308,11 @@ const navItems = [
     gap: 0.5rem;
   }
   .theme-toggle,
-  .menu-toggle {
+  .menu-toggle,
+  .lang-switch {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 2.5rem;
     height: 2.5rem;
     border-radius: var(--radius-md);
     background: transparent;
@@ -281,8 +323,25 @@ const navItems = [
       background-color 0.2s ease,
       border-color 0.2s ease;
   }
+  .theme-toggle,
+  .menu-toggle {
+    width: 2.5rem;
+  }
+  .lang-switch {
+    gap: 0.4rem;
+    padding: 0 0.7rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--fg);
+  }
+  .lang-switch [data-icon] {
+    width: 1rem;
+    height: 1rem;
+  }
   .theme-toggle:hover,
-  .menu-toggle:hover {
+  .menu-toggle:hover,
+  .lang-switch:hover {
     background: var(--bg-elevated);
     border-color: var(--border-strong);
   }
@@ -367,17 +426,5 @@ const navItems = [
     .nav-mobile {
       display: none;
     }
-  }
-
-  .sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
   }
 </style>

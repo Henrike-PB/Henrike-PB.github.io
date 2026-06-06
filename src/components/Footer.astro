@@ -2,8 +2,18 @@
 import { Icon } from 'astro-icon/components';
 import { personal } from '@/data/personal';
 import { currentYear } from '@/lib/age';
+import { ui } from '@/i18n/ui';
+import type { Locale } from '@/lib/i18n';
+import { DEFAULT_LOCALE, localePath } from '@/lib/i18n';
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = DEFAULT_LOCALE } = Astro.props;
 
 const year = currentYear();
+const home = localePath('/', locale);
 ---
 
 <footer class="site-footer">
@@ -12,11 +22,11 @@ const year = currentYear();
       <span class="brand-mark">HPB</span>
       <div>
         <strong>{personal.name}</strong>
-        <p>Engenheiro de Dados · Porto Alegre, RS</p>
+        <p>{ui.footer.roleLocation[locale]}</p>
       </div>
     </div>
 
-    <ul class="footer-links" aria-label="Links">
+    <ul class="footer-links" aria-label={ui.footer.socialAria[locale]}>
       <li>
         <a
           href={personal.contacts.linkedin}
@@ -47,13 +57,13 @@ const year = currentYear();
           href={personal.contacts.photographyPortfolio}
           target="_blank"
           rel="me noopener"
-          aria-label="Portfólio de fotografia"
+          aria-label={ui.footer.photographyAria[locale]}
         >
           <Icon name="lucide:camera" />
         </a>
       </li>
       <li>
-        <a href={`mailto:${personal.contacts.email}`} aria-label="Email">
+        <a href={`mailto:${personal.contacts.email}`} aria-label={ui.footer.emailAria[locale]}>
           <Icon name="lucide:mail" />
         </a>
       </li>
@@ -63,7 +73,7 @@ const year = currentYear();
   <div class="container-page footer-meta">
     <p>© <span data-current-year>{year}</span> {personal.name}.</p>
     <p class="muted">
-      <a href="#hero">Voltar ao topo <Icon name="lucide:arrow-up" /></a>
+      <a href={`${home}#hero`}>{ui.footer.backToTop[locale]} <Icon name="lucide:arrow-up" /></a>
     </p>
   </div>
 </footer>
