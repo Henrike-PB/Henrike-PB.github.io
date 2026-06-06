@@ -4,10 +4,19 @@ import { Icon } from 'astro-icon/components';
 import { personal } from '@/data/personal';
 import { currentPrimaryRole } from '@/lib/experience';
 import { computeAge } from '@/lib/age';
+import { ui } from '@/i18n/ui';
+import type { Locale } from '@/lib/i18n';
+import { DEFAULT_LOCALE, localePath } from '@/lib/i18n';
 import profilePhoto from '@/assets/profile.jpg';
 
-const role = currentPrimaryRole();
-const heroIntro = personal.bio.heroIntro;
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = DEFAULT_LOCALE } = Astro.props;
+
+const role = currentPrimaryRole(locale);
+const heroIntro = personal.bio.heroIntro[locale];
 const initialAge = computeAge(personal.birthDate);
 ---
 
@@ -16,45 +25,45 @@ const initialAge = computeAge(personal.birthDate);
     <div class="hero-text">
       <span class="hero-eyebrow">
         <span class="dot" aria-hidden="true"></span>
-        Disponível para conversar · Porto Alegre, RS
+        {ui.hero.available[locale]}
       </span>
 
       <h1 class="hero-name">
-        Olá, eu sou <span class="accent">{personal.shortName}</span>
+        {ui.hero.greeting[locale]} <span class="accent">{personal.shortName}</span>
       </h1>
 
       <p class="hero-role">
         {
           role ? (
             <>
-              {role.title} <span class="dim">@</span> <strong>{role.company}</strong>
+              {role.title}<span class="dim">{' @'}</span><strong>{role.company}</strong>
             </>
           ) : (
-            personal.tagline
+            personal.tagline[locale]
           )
         }
       </p>
 
       <p class="hero-meta">
-        <span><span data-age>{initialAge}</span> anos</span>
+        <span><span data-age>{initialAge}</span> {ui.hero.yearsSuffix[locale]}</span>
         <span class="sep" aria-hidden="true">·</span>
-        <span>{personal.location}</span>
+        <span>{personal.location[locale]}</span>
       </p>
 
       <p class="hero-bio">{heroIntro}</p>
 
       <div class="hero-cta">
-        <a href="#contato" class="btn btn-primary">
+        <a href={`${localePath('/', locale)}#contato`} class="btn btn-primary">
           <Icon name="lucide:mail" />
-          Entrar em contato
+          {ui.hero.ctaContact[locale]}
         </a>
-        <a href="#projetos" class="btn btn-ghost">
-          Ver projetos
+        <a href={`${localePath('/', locale)}#projetos`} class="btn btn-ghost">
+          {ui.hero.ctaProjects[locale]}
           <Icon name="lucide:arrow-right" />
         </a>
       </div>
 
-      <ul class="hero-social" aria-label="Redes sociais">
+      <ul class="hero-social" aria-label={ui.hero.socialAria[locale]}>
         <li>
           <a
             href={personal.contacts.linkedin}
@@ -87,7 +96,7 @@ const initialAge = computeAge(personal.birthDate);
       <div class="photo-frame">
         <Picture
           src={profilePhoto}
-          alt={`${personal.name}, Engenheiro de Dados em Porto Alegre`}
+          alt={ui.hero.portraitAlt[locale]}
           widths={[320, 480, 720, 960]}
           sizes="(max-width: 900px) 22rem, 22rem"
           formats={['avif', 'webp']}

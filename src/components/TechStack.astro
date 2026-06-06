@@ -1,17 +1,27 @@
 ---
 import { Icon } from 'astro-icon/components';
 import { techStack } from '@/data/tech';
+import { ui } from '@/i18n/ui';
+import type { Locale } from '@/lib/i18n';
+import { DEFAULT_LOCALE } from '@/lib/i18n';
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = DEFAULT_LOCALE } = Astro.props;
 ---
 
 <section id="stack" class="section">
   <div class="container-page">
     <div class="stack-header">
-      <span class="section-eyebrow">Stack</span>
+      <span class="section-eyebrow">{ui.stack.eyebrow[locale]}</span>
       <h2 class="heading-section">
-        Tecnologias com que <span class="accent">trabalho</span>.
+        {ui.stack.headingPrefix[locale]}{' '}
+        <span class="accent">{ui.stack.headingAccent[locale]}</span>{ui.stack.headingSuffix[locale]}
       </h2>
       <p class="stack-intro">
-        Stack atual e bagagem técnica acumulada, organizadas por contexto de uso.
+        {ui.stack.intro[locale]}
       </p>
     </div>
 
@@ -20,8 +30,8 @@ import { techStack } from '@/data/tech';
         techStack.map((group) => (
           <article class="stack-card">
             <header>
-              <h3>{group.title}</h3>
-              <p>{group.description}</p>
+              <h3>{group.title[locale]}</h3>
+              <p>{group.description[locale]}</p>
             </header>
             <ul class="stack-items" role="list">
               {group.items.map((item) => (

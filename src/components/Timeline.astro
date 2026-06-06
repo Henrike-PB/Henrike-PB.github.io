@@ -2,34 +2,46 @@
 import { Icon } from 'astro-icon/components';
 import { sortedExperiences } from '@/lib/experience';
 import type { ExperienceCategory } from '@/data/experience';
+import { ui } from '@/i18n/ui';
+import type { Locale } from '@/lib/i18n';
+import { DEFAULT_LOCALE } from '@/lib/i18n';
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = DEFAULT_LOCALE } = Astro.props;
 
 const list = sortedExperiences();
 
-const categoryMeta: Record<ExperienceCategory, { label: string; icon: string }> = {
-  data: { label: 'Dados', icon: 'lucide:database' },
-  'legal-tech': { label: 'Legal Tech', icon: 'lucide:scale' },
-  salesforce: { label: 'Salesforce', icon: 'simple-icons:salesforce' },
-  training: { label: 'Formação', icon: 'lucide:graduation-cap' },
-  volunteer: { label: 'Voluntariado', icon: 'lucide:heart-handshake' },
+const categoryIcons: Record<ExperienceCategory, string> = {
+  data: 'lucide:database',
+  'legal-tech': 'lucide:scale',
+  salesforce: 'simple-icons:salesforce',
+  training: 'lucide:graduation-cap',
+  volunteer: 'lucide:heart-handshake',
 };
 ---
 
 <section id="experiencia" class="section">
   <div class="container-page">
     <div class="timeline-header">
-      <span class="section-eyebrow">Trajetória</span>
+      <span class="section-eyebrow">{ui.timeline.eyebrow[locale]}</span>
       <h2 class="heading-section">
-        Onde já <span class="accent">construí</span>.
+        {ui.timeline.headingPrefix[locale]}{' '}
+        <span class="accent">{ui.timeline.headingAccent[locale]}</span
+        >{ui.timeline.headingSuffix[locale]}
       </h2>
       <p class="timeline-intro">
-        Da formação técnica no IOS ao primeiro CLT como Engenheiro de Dados, cada passo somou.
+        {ui.timeline.intro[locale]}
       </p>
     </div>
 
     <ol class="timeline" role="list">
       {
         list.map((exp) => {
-          const meta = categoryMeta[exp.category];
+          const icon = categoryIcons[exp.category];
+          const catLabel = ui.timeline.category[exp.category][locale];
           return (
             <li class={`tl-item tl-${exp.category}`} data-current={exp.current}>
               <div class="tl-marker" aria-hidden="true">
@@ -42,11 +54,11 @@ const categoryMeta: Record<ExperienceCategory, { label: string; icon: string }> 
                     <span class="tl-year">
                       {exp.startYear}
                       {exp.endYear ? ` · ${exp.endYear}` : ''}
-                      {exp.current && <em class="tl-now">· atual</em>}
+                      {exp.current && <em class="tl-now">{ui.timeline.current[locale]}</em>}
                     </span>
                     <span class={`tl-cat tl-cat-${exp.category}`}>
-                      <Icon name={meta.icon} />
-                      {meta.label}
+                      <Icon name={icon} />
+                      {catLabel}
                     </span>
                   </div>
                   <h3 class="tl-company">
@@ -65,18 +77,18 @@ const categoryMeta: Record<ExperienceCategory, { label: string; icon: string }> 
                         <span class="tl-role-bullet" aria-hidden="true">
                           {i === 0 ? '●' : '○'}
                         </span>
-                        <span class="tl-role-title">{r.title}</span>
+                        <span class="tl-role-title">{r.title[locale]}</span>
                         <span class="tl-role-since">{r.since}</span>
                       </li>
                     ))}
                   </ul>
                 </header>
 
-                {exp.summary && <p class="tl-summary">{exp.summary}</p>}
+                {exp.summary && <p class="tl-summary">{exp.summary[locale]}</p>}
 
-                {exp.highlights && exp.highlights.length > 0 && (
+                {exp.highlights && exp.highlights[locale].length > 0 && (
                   <ul class="tl-highlights" role="list">
-                    {exp.highlights.map((h) => (
+                    {exp.highlights[locale].map((h) => (
                       <li>
                         <Icon name="lucide:check" />
                         <span>{h}</span>
@@ -88,7 +100,7 @@ const categoryMeta: Record<ExperienceCategory, { label: string; icon: string }> 
                 {exp.honor && (
                   <p class="tl-honor">
                     <Icon name="lucide:award" />
-                    {exp.honor}
+                    {exp.honor[locale]}
                   </p>
                 )}
 
@@ -111,7 +123,8 @@ const categoryMeta: Record<ExperienceCategory, { label: string; icon: string }> 
 <script is:inline>
   (function () {
     const items = document.querySelectorAll('.tl-item');
-    if (!('IntersectionObserver' in window)) {
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduced || !('IntersectionObserver' in window)) {
       items.forEach((it) => it.classList.add('in-view'));
       return;
     }
@@ -177,6 +190,12 @@ const categoryMeta: Record<ExperienceCategory, { label: string; icon: string }> 
   .tl-item.in-view {
     opacity: 1;
     transform: translateY(0);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .tl-item {
+      opacity: 1;
+      transform: none;
+    }
   }
 
   @media (min-width: 768px) {

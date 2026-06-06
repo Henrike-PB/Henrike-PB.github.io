@@ -1,11 +1,12 @@
 import type { ImageMetadata } from 'astro';
+import type { Localized } from '@/lib/i18n';
 
 export type ProjectCategory = 'web' | 'fullstack' | 'data' | 'game';
 
 export type Project = {
   id: string;
   name: string;
-  description: string;
+  description: Localized<string>;
   category: ProjectCategory;
   tech: string[];
   image?: ImageMetadata;
@@ -14,7 +15,7 @@ export type Project = {
   repoUrl?: string;
   partner?: string;
   featured?: boolean;
-  note?: string;
+  note?: Localized<string>;
 };
 
 const images = import.meta.glob<ImageMetadata>('/src/assets/projects/*.png', {
@@ -30,20 +31,29 @@ export const projects: Project[] = [
   {
     id: 'analise-desempenho-academico',
     name: 'Análise de Desempenho Acadêmico com Machine Learning',
-    description:
-      'Desafio final do Geração Caldeira 2024: análise de dados educacionais e previsão do GPA de estudantes do ensino médio com regressão linear, identificando fatores que influenciam o desempenho. Pré-processamento, modelagem com scikit-learn, avaliação com MSE/R² e visualizações com matplotlib e seaborn.',
+    description: {
+      'pt-BR':
+        'Desafio final do Geração Caldeira 2024: análise de dados educacionais e previsão do GPA de estudantes do ensino médio com regressão linear, identificando fatores que influenciam o desempenho. Pré-processamento, modelagem com scikit-learn, avaliação com MSE/R² e visualizações com matplotlib e seaborn.',
+      en: 'Final challenge of the 2024 Geração Caldeira program: analysis of educational data and prediction of high-school students GPA with linear regression, identifying factors that influence performance. Pre-processing, modeling with scikit-learn, evaluation with MSE/R² and visualizations with matplotlib and seaborn.',
+    },
     category: 'data',
     tech: ['Python', 'pandas', 'scikit-learn', 'matplotlib', 'seaborn'],
     icon: 'lucide:line-chart',
     partner: 'Dafni Rosa, Raul Rotilli, João Vitor, Monique de Leon',
     featured: true,
-    note: 'Repositório privado.',
+    note: {
+      'pt-BR': 'Repositório privado.',
+      en: 'Private repository.',
+    },
   },
   {
     id: 'pizzaria-code',
     name: 'Pizzaria Code',
-    description:
-      'Pizzaria com sabores inspirados em linguagens de programação. Landing page com cardápio dinâmico em PHP + MySQL, design UX/UI mobile first.',
+    description: {
+      'pt-BR':
+        'Pizzaria com sabores inspirados em linguagens de programação. Landing page com cardápio dinâmico em PHP + MySQL, design UX/UI mobile first.',
+      en: 'Pizzeria with flavors inspired by programming languages. Landing page with a dynamic menu in PHP + MySQL, mobile-first UX/UI design.',
+    },
     category: 'fullstack',
     tech: ['PHP', 'MySQL', 'JavaScript', 'CSS'],
     image: img('pizza'),
@@ -55,8 +65,11 @@ export const projects: Project[] = [
   {
     id: 'innova',
     name: 'INNOVA',
-    description:
-      'Projeto colaborativo do Instituto da Oportunidade Social ("Projeto Família"), com foco em soluções inovadoras para desafios sociais.',
+    description: {
+      'pt-BR':
+        'Projeto colaborativo do Instituto da Oportunidade Social ("Projeto Família"), com foco em soluções inovadoras para desafios sociais.',
+      en: 'Collaborative project from Instituto da Oportunidade Social ("Projeto Família"), focused on innovative solutions for social challenges.',
+    },
     category: 'web',
     tech: ['HTML', 'CSS', 'JavaScript'],
     image: img('innova'),
@@ -67,8 +80,11 @@ export const projects: Project[] = [
   {
     id: 'caps-letters',
     name: "CAP'S LETTERS",
-    description:
-      'Página de debate sobre o futuro da programação, com tema de IA e o impacto no mercado de trabalho dos desenvolvedores.',
+    description: {
+      'pt-BR':
+        'Página de debate sobre o futuro da programação, com tema de IA e o impacto no mercado de trabalho dos desenvolvedores.',
+      en: 'Discussion page about the future of programming, themed on AI and its impact on developers job market.',
+    },
     category: 'web',
     tech: ['HTML', 'CSS', 'JavaScript'],
     image: img('cap'),
@@ -78,8 +94,11 @@ export const projects: Project[] = [
   {
     id: 'cafeteria-ios',
     name: 'Cafeteria IOS',
-    description:
-      'Landing page imersiva sobre café usando técnicas avançadas de parallax para criar uma narrativa visual sensorial.',
+    description: {
+      'pt-BR':
+        'Landing page imersiva sobre café usando técnicas avançadas de parallax para criar uma narrativa visual sensorial.',
+      en: 'Immersive landing page about coffee using advanced parallax techniques to create a sensory visual narrative.',
+    },
     category: 'web',
     tech: ['HTML', 'CSS'],
     image: img('cafe'),
@@ -89,8 +108,11 @@ export const projects: Project[] = [
   {
     id: 'sistema-solar',
     name: 'Sistema Solar',
-    description:
-      'Landing page imersiva sobre astronomia com efeitos de parallax que conduzem o visitante por uma viagem visual pelo Sistema Solar.',
+    description: {
+      'pt-BR':
+        'Landing page imersiva sobre astronomia com efeitos de parallax que conduzem o visitante por uma viagem visual pelo Sistema Solar.',
+      en: 'Immersive landing page about astronomy with parallax effects that take the visitor on a visual journey through the Solar System.',
+    },
     category: 'web',
     tech: ['HTML', 'CSS'],
     image: img('space'),
@@ -100,8 +122,11 @@ export const projects: Project[] = [
   {
     id: 'vincents-calculator',
     name: "Vincent's Calculator",
-    description:
-      'Calculadora em JavaScript inspirada nas obras de Van Gogh, somando cálculo, arte e identidade visual.',
+    description: {
+      'pt-BR':
+        'Calculadora em JavaScript inspirada nas obras de Van Gogh, somando cálculo, arte e identidade visual.',
+      en: 'JavaScript calculator inspired by Van Gogh works, blending calculation, art and visual identity.',
+    },
     category: 'web',
     tech: ['HTML', 'CSS', 'JavaScript'],
     image: img('calc'),
@@ -111,8 +136,11 @@ export const projects: Project[] = [
   {
     id: 'imc',
     name: 'Calcule seu IMC',
-    description:
-      'Landing page que vai além do cálculo simples de IMC, apresentando informações sobre saúde e bem-estar associadas ao resultado.',
+    description: {
+      'pt-BR':
+        'Landing page que vai além do cálculo simples de IMC, apresentando informações sobre saúde e bem-estar associadas ao resultado.',
+      en: 'Landing page that goes beyond simple BMI calculation, presenting health and wellbeing information tied to the result.',
+    },
     category: 'web',
     tech: ['HTML', 'CSS', 'JavaScript'],
     image: img('imc'),
@@ -122,8 +150,11 @@ export const projects: Project[] = [
   {
     id: 'todo',
     name: 'To-Do List',
-    description:
-      'Lista de tarefas com lógica de persistência e funcionalidades dinâmicas para gerenciar e acompanhar o progresso das atividades.',
+    description: {
+      'pt-BR':
+        'Lista de tarefas com lógica de persistência e funcionalidades dinâmicas para gerenciar e acompanhar o progresso das atividades.',
+      en: 'To-do list with persistence logic and dynamic features to manage and track activity progress.',
+    },
     category: 'web',
     tech: ['HTML', 'CSS', 'JavaScript'],
     image: img('todo'),
@@ -133,8 +164,11 @@ export const projects: Project[] = [
   {
     id: 'tabuada',
     name: 'Gerador de Tabuada',
-    description:
-      'Ferramenta educacional voltada ao público infantil com abordagem lúdica e interativa para aprender matemática.',
+    description: {
+      'pt-BR':
+        'Ferramenta educacional voltada ao público infantil com abordagem lúdica e interativa para aprender matemática.',
+      en: 'Educational tool for children with a playful, interactive approach to learning math.',
+    },
     category: 'web',
     tech: ['HTML', 'CSS', 'JavaScript'],
     image: img('tabuada'),
@@ -144,8 +178,11 @@ export const projects: Project[] = [
   {
     id: 'game-of-old-lady',
     name: 'Game of Old Lady',
-    description:
-      'Jogo da velha em JavaScript com personalização do tema da partida, oferecendo uma experiência única a cada rodada.',
+    description: {
+      'pt-BR':
+        'Jogo da velha em JavaScript com personalização do tema da partida, oferecendo uma experiência única a cada rodada.',
+      en: 'Tic-tac-toe in JavaScript with theme customization, offering a unique experience each round.',
+    },
     category: 'game',
     tech: ['HTML', 'CSS', 'JavaScript'],
     image: img('gol'),
@@ -155,8 +192,11 @@ export const projects: Project[] = [
   {
     id: 'quiz-soulslike',
     name: 'Quiz Soulslike',
-    description:
-      'Quiz interativo com tema do gênero de video game "Soulslike", feito em JavaScript puro.',
+    description: {
+      'pt-BR':
+        'Quiz interativo com tema do gênero de video game "Soulslike", feito em JavaScript puro.',
+      en: 'Interactive quiz themed on the "Soulslike" video-game genre, built in vanilla JavaScript.',
+    },
     category: 'game',
     tech: ['HTML', 'CSS', 'JavaScript'],
     image: img('souls'),
@@ -166,8 +206,11 @@ export const projects: Project[] = [
   {
     id: 'mugiwara-jump',
     name: 'Mugiwara Jump',
-    description:
-      'Jogo de plataforma simples inspirado no universo de One Piece. Explore e salte obstáculos no mundo pirata.',
+    description: {
+      'pt-BR':
+        'Jogo de plataforma simples inspirado no universo de One Piece. Explore e salte obstáculos no mundo pirata.',
+      en: 'Simple platformer inspired by the One Piece universe. Explore and jump obstacles in the pirate world.',
+    },
     category: 'game',
     tech: ['HTML', 'CSS', 'JavaScript'],
     image: img('mugiwara'),
@@ -177,8 +220,11 @@ export const projects: Project[] = [
   {
     id: 'kiko-clicker',
     name: 'Kiko Clicker',
-    description:
-      'Jogo de clicker viciante: mecânica simples, competição por pontuações mais altas.',
+    description: {
+      'pt-BR':
+        'Jogo de clicker viciante: mecânica simples, competição por pontuações mais altas.',
+      en: 'Addictive clicker game: simple mechanics, competition for higher scores.',
+    },
     category: 'game',
     tech: ['HTML', 'CSS', 'JavaScript'],
     image: img('kiko'),
@@ -188,10 +234,5 @@ export const projects: Project[] = [
   },
 ];
 
-export const projectCategories: { id: ProjectCategory | 'all'; label: string }[] = [
-  { id: 'all', label: 'Todos' },
-  { id: 'fullstack', label: 'Full Stack' },
-  { id: 'web', label: 'Web' },
-  { id: 'game', label: 'Jogos' },
-  { id: 'data', label: 'Dados' },
-];
+export const projectCategoryIds = ['all', 'fullstack', 'web', 'game', 'data'] as const;
+export type ProjectCategoryFilterId = (typeof projectCategoryIds)[number];

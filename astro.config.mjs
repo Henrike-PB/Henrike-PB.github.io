@@ -9,6 +9,11 @@ export default defineConfig({
   site: SITE,
   output: 'static',
   trailingSlash: 'ignore',
+  i18n: {
+    defaultLocale: 'pt-BR',
+    locales: ['pt-BR', 'en'],
+    routing: { prefixDefaultLocale: false },
+  },
   build: {
     inlineStylesheets: 'auto',
   },
@@ -22,7 +27,12 @@ export default defineConfig({
     },
   },
   integrations: [
-    sitemap(),
+    sitemap({
+      i18n: {
+        defaultLocale: 'pt-BR',
+        locales: { 'pt-BR': 'pt-BR', en: 'en' },
+      },
+    }),
     icon({
       include: {
         lucide: [
@@ -33,6 +43,7 @@ export default defineConfig({
           'check',
           'database',
           'external-link',
+          'globe',
           'graduation-cap',
           'heart-handshake',
           'layers',

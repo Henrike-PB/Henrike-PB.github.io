@@ -2,18 +2,28 @@
 import { Image } from 'astro:assets';
 import { Icon } from 'astro-icon/components';
 import { volunteerActivities, getLogo } from '@/data/volunteer';
+import { ui } from '@/i18n/ui';
+import type { Locale } from '@/lib/i18n';
+import { DEFAULT_LOCALE } from '@/lib/i18n';
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = DEFAULT_LOCALE } = Astro.props;
 ---
 
 <section id="voluntariado" class="section">
   <div class="container-page">
     <div class="vol-header">
-      <span class="section-eyebrow">Voluntariado</span>
+      <span class="section-eyebrow">{ui.volunteer.eyebrow[locale]}</span>
       <h2 class="heading-section">
-        Causas que me <span class="accent">movem</span>.
+        {ui.volunteer.headingPrefix[locale]}{' '}
+        <span class="accent">{ui.volunteer.headingAccent[locale]}</span
+        >{ui.volunteer.headingSuffix[locale]}
       </h2>
       <p class="vol-intro">
-        Tecnologia faz mais sentido quando volta para a comunidade. Esses são os projetos onde sigo
-        contribuindo.
+        {ui.volunteer.intro[locale]}
       </p>
     </div>
 
@@ -27,7 +37,7 @@ import { volunteerActivities, getLogo } from '@/data/volunteer';
                 {logo ? (
                   <Image
                     src={logo}
-                    alt={`Logo ${v.org}`}
+                    alt={`${ui.volunteer.logoAlt[locale]} ${v.org}`}
                     widths={[120, 240]}
                     sizes="120px"
                     format="webp"
@@ -54,16 +64,16 @@ import { volunteerActivities, getLogo } from '@/data/volunteer';
                 </header>
 
                 <div class="vol-meta">
-                  <span class="vol-role">{v.role}</span>
+                  <span class="vol-role">{v.role[locale]}</span>
                   <span class="vol-since">{v.since}</span>
                 </div>
 
-                <p class="vol-desc">{v.description}</p>
+                <p class="vol-desc">{v.description[locale]}</p>
 
                 {v.honor && (
                   <p class="vol-honor">
                     <Icon name="lucide:award" />
-                    {v.honor}
+                    {v.honor[locale]}
                   </p>
                 )}
               </div>

@@ -1,11 +1,13 @@
 import { experiences, type Experience } from '@/data/experience';
+import type { Locale } from '@/lib/i18n';
 
-export function currentPrimaryRole(): { title: string; company: string } | null {
+export function currentPrimaryRole(locale: Locale): { title: string; company: string } | null {
   const dataRole = experiences.find((e) => e.current && e.category === 'data');
   const target = dataRole ?? experiences.find((e) => e.current);
   if (!target) return null;
+  const role = target.roles[0];
   return {
-    title: target.roles[0]?.title ?? '',
+    title: role ? role.title[locale] : '',
     company: target.company,
   };
 }

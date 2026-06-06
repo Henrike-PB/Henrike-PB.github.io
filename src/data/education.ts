@@ -1,6 +1,8 @@
+import type { Localized } from '@/lib/i18n';
+
 export type Education = {
   institution: string;
-  degree: string;
+  degree: Localized<string>;
   startYear: number;
   endYear: number;
   current: boolean;
@@ -10,7 +12,10 @@ export type Education = {
 export const education: Education[] = [
   {
     institution: 'UNISINOS · Universidade do Vale do Rio dos Sinos',
-    degree: 'CST em Análise e Desenvolvimento de Sistemas',
+    degree: {
+      'pt-BR': 'CST em Análise e Desenvolvimento de Sistemas',
+      en: 'Associate Degree in Systems Analysis and Development',
+    },
     startYear: 2024,
     endYear: 2027,
     current: true,
@@ -18,7 +23,10 @@ export const education: Education[] = [
   },
   {
     institution: 'Geração Caldeira',
-    degree: 'Trilha de Programação Python · turma 2024',
+    degree: {
+      'pt-BR': 'Trilha de Programação Python · turma 2024',
+      en: 'Python Programming Track · 2024 cohort',
+    },
     startYear: 2024,
     endYear: 2024,
     current: false,
@@ -26,14 +34,20 @@ export const education: Education[] = [
   },
   {
     institution: 'Fundação O Pão dos Pobres',
-    degree: 'Curso de Aprendizagem Profissional · Manutenção de Computadores',
+    degree: {
+      'pt-BR': 'Curso de Aprendizagem Profissional · Manutenção de Computadores',
+      en: 'Professional Training Course · Computer Maintenance',
+    },
     startYear: 2024,
     endYear: 2025,
     current: false,
   },
   {
     institution: 'Instituto da Oportunidade Social (IOS)',
-    degree: 'Desenvolvimento Web Full Stack',
+    degree: {
+      'pt-BR': 'Desenvolvimento Web Full Stack',
+      en: 'Full Stack Web Development',
+    },
     startYear: 2023,
     endYear: 2024,
     current: false,

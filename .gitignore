@@ -78,6 +78,7 @@ coverage/
 
 # ===== Assistentes IA / config local =====
 CLAUDE.md
+CHANGELOG.md
 .claude/
 .cursor/
 .aider*
