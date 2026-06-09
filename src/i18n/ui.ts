@@ -122,9 +122,7 @@ export const ui = {
     featured: { 'pt-BR': 'Destaque', en: 'Featured' },
     withCollaborators: { 'pt-BR': 'com', en: 'with' },
     seeProject: { 'pt-BR': 'Ver projeto', en: 'View project' },
-    seeProjectAria: { 'pt-BR': 'Visitar', en: 'Visit' },
     seeRepo: { 'pt-BR': 'Repositório', en: 'Repository' },
-    seeRepoAria: { 'pt-BR': 'Repositório de', en: 'Repository of' },
     altPrefix: { 'pt-BR': 'Captura do projeto', en: 'Screenshot of project' },
     category: {
       all: { 'pt-BR': 'Todos', en: 'All' },

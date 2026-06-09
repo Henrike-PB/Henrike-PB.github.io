@@ -29,8 +29,9 @@ const otherLabel = other === 'en' ? 'EN' : 'PT';
 
 <header class="site-header">
   <div class="container-page header-inner">
-    <a href={`${home}#hero`} class="brand" aria-label={ui.header.backToTop[locale]}>
+    <a href={`${home}#hero`} class="brand">
       <span class="brand-mark brand-mark--sm">HPB</span>
+      <span class="sr-only">— {ui.header.backToTop[locale]}</span>
     </a>
 
     <nav class="nav-desktop" aria-label={ui.header.primaryNav[locale]}>
@@ -49,12 +50,12 @@ const otherLabel = other === 'en' ? 'EN' : 'PT';
       <a
         href={otherHome}
         class="lang-switch"
-        aria-label={ui.header.switchLanguageTo[locale]}
         hreflang={other === 'en' ? 'en' : 'pt-BR'}
         data-lang-switch
       >
         <Icon name="lucide:globe" aria-hidden="true" />
         <span>{otherLabel}</span>
+        <span class="sr-only">— {ui.header.switchLanguageTo[locale]}</span>
       </a>
 
       <button
