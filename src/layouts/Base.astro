@@ -109,6 +109,19 @@ const websiteSchema = {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {
+      /* CSP de defesa em profundidade — só em prod (em dev quebraria o HMR do Vite).
+         GitHub Pages não permite headers, então vai via <meta>; frame-ancestors/XFO
+         não funcionam por meta (sem proteção a clickjacking por aqui). */
+    }
+    {
+      import.meta.env.PROD && (
+        <meta
+          http-equiv="Content-Security-Policy"
+          content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://formsubmit.co; form-action 'self' https://formsubmit.co; upgrade-insecure-requests"
+        />
+      )
+    }
     <meta name="generator" content={Astro.generator} />
     <meta name="google-site-verification" content="tY7-pwTszIPMR5z2MVAoHn3RXoAFXIz2v8P4Yt0ceXM" />
     <link rel="canonical" href={canonicalURL} />
