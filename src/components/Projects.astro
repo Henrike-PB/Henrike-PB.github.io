@@ -87,7 +87,7 @@ const { locale = DEFAULT_LOCALE } = Astro.props;
                       target="_blank"
                       rel="noopener"
                       class="project-link"
-                      aria-label={`${ui.projects.seeProjectAria[locale]} ${p.name}`}
+                      aria-label={`${ui.projects.seeProject[locale]}: ${p.name}`}
                     >
                       <Icon name="lucide:external-link" />
                       {ui.projects.seeProject[locale]}
@@ -99,7 +99,7 @@ const { locale = DEFAULT_LOCALE } = Astro.props;
                       target="_blank"
                       rel="noopener"
                       class="project-link ghost"
-                      aria-label={`${ui.projects.seeRepoAria[locale]} ${p.name}`}
+                      aria-label={`${ui.projects.seeRepo[locale]}: ${p.name}`}
                     >
                       <Icon name="simple-icons:github" />
                       {ui.projects.seeRepo[locale]}
