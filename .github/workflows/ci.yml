@@ -6,6 +6,10 @@ on:
   push:
     branches-ignore: [main]
 
+# Menor privilégio: o CI só faz checkout/build/type-check, não escreve nada.
+permissions:
+  contents: read
+
 env:
   NODE_VERSION: '22'
 
