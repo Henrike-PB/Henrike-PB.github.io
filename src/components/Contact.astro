@@ -10,6 +10,9 @@ interface Props {
 }
 
 const { locale = DEFAULT_LOCALE } = Astro.props;
+
+// Email codificado em base64 — montado no cliente para não expor em texto plano.
+const emailB64 = Buffer.from(personal.contacts.email).toString('base64');
 ---
 
 <section id="contato" class="section">
@@ -28,11 +31,11 @@ const { locale = DEFAULT_LOCALE } = Astro.props;
 
     <div class="contact-grid">
       <aside class="contact-aside">
-        <a href={`mailto:${personal.contacts.email}`} class="contact-direct">
+        <a data-email={emailB64} class="contact-direct">
           <Icon name="lucide:mail" />
           <div>
             <span>{ui.contact.emailLabel[locale]}</span>
-            <strong>{personal.contacts.email}</strong>
+            <strong data-email-text></strong>
           </div>
         </a>
         <a

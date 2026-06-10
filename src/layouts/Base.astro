@@ -51,7 +51,6 @@ const personSchema = {
   birthPlace: { '@type': 'Place', name: 'Porto Alegre, RS, Brasil' },
   nationality: { '@type': 'Country', name: 'Brasil' },
   knowsLanguage: ['Portuguese', 'English'],
-  email: `mailto:${personal.contacts.email}`,
   address: {
     '@type': 'PostalAddress',
     addressLocality: 'Porto Alegre',
@@ -210,6 +209,21 @@ const websiteSchema = {
       });
       document.querySelectorAll('[data-current-year]').forEach((el) => {
         el.textContent = String(currentYear());
+      });
+      // Email montado no cliente (data-email em base64) para não ficar em texto
+      // plano no HTML e reduzir coleta por scrapers.
+      document.querySelectorAll('[data-email]').forEach((el) => {
+        const enc = el.getAttribute('data-email');
+        if (!enc) return;
+        let email;
+        try {
+          email = atob(enc);
+        } catch (_) {
+          return;
+        }
+        if (el.tagName === 'A') el.setAttribute('href', `mailto:${email}`);
+        const text = el.querySelector('[data-email-text]');
+        if (text) text.textContent = email;
       });
     </script>
   </body>
