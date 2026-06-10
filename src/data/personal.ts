@@ -45,7 +45,8 @@ export const personal = {
     photographyPortfolio: 'https://henrike-pb.github.io/photography-portfolio/',
   },
 
-  formSubmitEndpoint: 'https://formsubmit.co/ajax/pajaresbragahenrike@gmail.com',
+  // Alias público do FormSubmit (substitui o email no HTML para evitar scraping).
+  formSubmitEndpoint: 'https://formsubmit.co/ajax/b8f4651070a2e5ae888a53872229323f',
 } as const;
 
 export type PersonalInfo = typeof personal;
