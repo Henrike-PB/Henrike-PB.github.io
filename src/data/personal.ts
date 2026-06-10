@@ -45,7 +45,7 @@ export const personal = {
     photographyPortfolio: 'https://henrike-pb.github.io/photography-portfolio/',
   },
 
-  formSubmitEndpoint: 'https://formsubmit.co/pajaresbragahenrike@gmail.com',
+  formSubmitEndpoint: 'https://formsubmit.co/ajax/pajaresbragahenrike@gmail.com',
 } as const;
 
 export type PersonalInfo = typeof personal;

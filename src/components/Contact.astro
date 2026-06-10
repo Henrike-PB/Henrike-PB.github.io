@@ -144,7 +144,10 @@ const { locale = DEFAULT_LOCALE } = Astro.props;
           body: data,
           headers: { Accept: 'application/json' },
         });
-        if (!res.ok) throw new Error('Submit failed');
+        const result = await res.json().catch(() => null);
+        if (!res.ok || !result || String(result.success) !== 'true') {
+          throw new Error('Submit failed');
+        }
         form.reset();
         status.textContent = msgOk;
         status.dataset.kind = 'ok';
