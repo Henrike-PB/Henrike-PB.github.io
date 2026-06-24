@@ -28,8 +28,8 @@
     "typescript": "^6.0.3"
   },
   "devDependencies": {
-    "@iconify-json/lucide": "^1.2.113",
-    "@iconify-json/simple-icons": "^1.2.86",
+    "@iconify-json/lucide": "^1.2.114",
+    "@iconify-json/simple-icons": "^1.2.87",
     "prettier": "^3.8.4",
     "prettier-plugin-astro": "^0.14.0"
   }
