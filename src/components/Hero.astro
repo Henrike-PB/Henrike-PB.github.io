@@ -94,11 +94,11 @@ const initialAge = computeAge(personal.birthDate);
         <Picture
           src={profilePhoto}
           alt={ui.hero.portraitAlt[locale]}
-          widths={[320, 480, 720, 960]}
+          widths={[320, 480, 640, 720, 960]}
           sizes="(max-width: 900px) 22rem, 22rem"
           formats={['avif', 'webp']}
           fallbackFormat="webp"
-          quality={82}
+          quality={70}
           loading="eager"
           fetchpriority="high"
           class="photo-img"
