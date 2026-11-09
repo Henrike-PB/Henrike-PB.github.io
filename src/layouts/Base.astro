@@ -2,14 +2,7 @@
 import '@/styles/global.css';
 import { personal } from '@/data/personal';
 import { ui } from '@/i18n/ui';
-import {
-  DEFAULT_LOCALE,
-  htmlLang,
-  localePath,
-  ogLocale,
-  LOCALES,
-  type Locale,
-} from '@/lib/i18n';
+import { DEFAULT_LOCALE, htmlLang, localePath, ogLocale, LOCALES, type Locale } from '@/lib/i18n';
 
 type Props = {
   title?: string;
@@ -108,28 +101,22 @@ const websiteSchema = {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    {
-      /* CSP de defesa em profundidade — só em prod (em dev quebraria o HMR do Vite).
+    {/* CSP de defesa em profundidade — só em prod (em dev quebraria o HMR do Vite).
          GitHub Pages não permite headers, então vai via <meta>; frame-ancestors/XFO
-         não funcionam por meta (sem proteção a clickjacking por aqui). */
-    }
-    {
-      import.meta.env.PROD && (
-        <meta
-          http-equiv="Content-Security-Policy"
-          content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://formsubmit.co; form-action 'self' https://formsubmit.co; upgrade-insecure-requests"
-        />
-      )
-    }
+         não funcionam por meta (sem proteção a clickjacking por aqui). */}
+    {import.meta.env.PROD && (
+      <meta
+        http-equiv="Content-Security-Policy"
+        content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://formsubmit.co; form-action 'self' https://formsubmit.co; upgrade-insecure-requests"
+      />
+    )}
     <meta name="generator" content={Astro.generator} />
     <meta name="google-site-verification" content="tY7-pwTszIPMR5z2MVAoHn3RXoAFXIz2v8P4Yt0ceXM" />
     <link rel="canonical" href={canonicalURL} />
 
-    {
-      LOCALES.map((l) => (
-        <link rel="alternate" hreflang={htmlLang(l)} href={homeForLocale(l)} />
-      ))
-    }
+    {LOCALES.map((l) => (
+      <link rel="alternate" hreflang={htmlLang(l)} href={homeForLocale(l)} />
+    ))}
     <link rel="alternate" hreflang="x-default" href={homeForLocale(DEFAULT_LOCALE)} />
 
     <title>{resolvedTitle}</title>
@@ -153,11 +140,9 @@ const websiteSchema = {
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content={ui.meta.ogImageAlt[locale]} />
     <meta property="og:locale" content={ogLocale(locale)} />
-    {
-      LOCALES.filter((l) => l !== locale).map((l) => (
-        <meta property="og:locale:alternate" content={ogLocale(l)} />
-      ))
-    }
+    {LOCALES.filter((l) => l !== locale).map((l) => (
+      <meta property="og:locale:alternate" content={ogLocale(l)} />
+    ))}
     <meta property="og:site_name" content={`${personal.name} · Portfolio`} />
     <meta property="profile:first_name" content="Henrike" />
     <meta property="profile:last_name" content="Pajares Braga" />
@@ -175,7 +160,6 @@ const websiteSchema = {
     <script is:inline type="application/ld+json" set:html={JSON.stringify(profilePageSchema)} />
     <script is:inline type="application/ld+json" set:html={JSON.stringify(personSchema)} />
     <script is:inline type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
-
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -196,7 +180,9 @@ const websiteSchema = {
   </head>
 
   <body>
-    <a href="#main" class="skip-link">{ui.meta.skipToContent[locale]}</a>
+    <a href="#main" class="skip-link">
+      {ui.meta.skipToContent[locale]}
+    </a>
 
     <slot />
 

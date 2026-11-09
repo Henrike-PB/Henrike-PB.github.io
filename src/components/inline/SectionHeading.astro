@@ -1,0 +1,15 @@
+---
+// Section title: "<prefix> <accent><suffix>", e.g. "Vamos conversar?".
+// Lives in components/inline/, which Prettier skips: the formatter would put the
+// suffix on its own line, which renders as a visible space before the
+// punctuation ("conversar ?").
+interface Props {
+  prefix: string;
+  accent: string;
+  suffix: string;
+}
+
+const { prefix, accent, suffix } = Astro.props;
+---
+
+<h2 class="heading-section">{prefix} <span class="accent">{accent}</span>{suffix}</h2>

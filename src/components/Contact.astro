@@ -4,6 +4,7 @@ import { personal } from '@/data/personal';
 import { ui } from '@/i18n/ui';
 import type { Locale } from '@/lib/i18n';
 import { DEFAULT_LOCALE } from '@/lib/i18n';
+import SectionHeading from '@/components/inline/SectionHeading.astro';
 
 interface Props {
   locale?: Locale;
@@ -19,14 +20,12 @@ const emailB64 = Buffer.from(personal.contacts.email).toString('base64');
   <div class="container-page">
     <div class="contact-header">
       <span class="section-eyebrow">{ui.contact.eyebrow[locale]}</span>
-      <h2 class="heading-section">
-        {ui.contact.headingPrefix[locale]}{' '}
-        <span class="accent">{ui.contact.headingAccent[locale]}</span
-        >{ui.contact.headingSuffix[locale]}
-      </h2>
-      <p class="contact-intro">
-        {ui.contact.intro[locale]}
-      </p>
+      <SectionHeading
+        prefix={ui.contact.headingPrefix[locale]}
+        accent={ui.contact.headingAccent[locale]}
+        suffix={ui.contact.headingSuffix[locale]}
+      />
+      <p class="contact-intro">{ui.contact.intro[locale]}</p>
     </div>
 
     <div class="contact-grid">
@@ -109,7 +108,8 @@ const emailB64 = Buffer.from(personal.contacts.email).toString('base64');
             name="message"
             rows="5"
             placeholder={ui.contact.fieldMessagePh[locale]}
-            required></textarea>
+            required
+          ></textarea>
         </div>
 
         <button type="submit" class="btn btn-primary contact-submit">

@@ -73,9 +73,13 @@ const emailB64 = Buffer.from(personal.contacts.email).toString('base64');
   </div>
 
   <div class="container-page footer-meta">
-    <p>© <span data-current-year>{year}</span> {personal.name}.</p>
+    <p>
+      © <span data-current-year>{year}</span> {personal.name}.
+    </p>
     <p class="muted">
-      <a href={`${home}#hero`}>{ui.footer.backToTop[locale]} <Icon name="lucide:arrow-up" /></a>
+      <a href={`${home}#hero`}>
+        {ui.footer.backToTop[locale]} <Icon name="lucide:arrow-up" />
+      </a>
     </p>
   </div>
 </footer>

@@ -8,6 +8,7 @@ import { ui } from '@/i18n/ui';
 import type { Locale } from '@/lib/i18n';
 import { DEFAULT_LOCALE, localePath } from '@/lib/i18n';
 import profilePhoto from '@/assets/profile.jpg';
+import RoleLine from '@/components/inline/RoleLine.astro';
 
 interface Props {
   locale?: Locale;
@@ -33,20 +34,16 @@ const initialAge = computeAge(personal.birthDate);
       </h1>
 
       <p class="hero-role">
-        {
-          role ? (
-            <>
-              {role.title}<span class="dim">{' @'}</span><strong>{role.company}</strong>
-            </>
-          ) : (
-            personal.tagline[locale]
-          )
-        }
+        {role ? <RoleLine title={role.title} company={role.company} /> : personal.tagline[locale]}
       </p>
 
       <p class="hero-meta">
-        <span><span data-age>{initialAge}</span> {ui.hero.yearsSuffix[locale]}</span>
-        <span class="sep" aria-hidden="true">·</span>
+        <span>
+          <span data-age>{initialAge}</span> {ui.hero.yearsSuffix[locale]}
+        </span>
+        <span class="sep" aria-hidden="true">
+          ·
+        </span>
         <span>{personal.location[locale]}</span>
       </p>
 
@@ -165,10 +162,10 @@ const initialAge = computeAge(personal.birthDate);
     margin: 0;
     font-weight: 500;
   }
-  .hero-role .dim {
+  .hero-role :global(.dim) {
     color: var(--fg-subtle);
   }
-  .hero-role strong {
+  .hero-role :global(strong) {
     color: var(--accent);
     font-weight: 600;
   }

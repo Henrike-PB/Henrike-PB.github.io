@@ -4,6 +4,7 @@ import { education } from '@/data/education';
 import { ui } from '@/i18n/ui';
 import type { Locale } from '@/lib/i18n';
 import { DEFAULT_LOCALE } from '@/lib/i18n';
+import SectionHeading from '@/components/inline/SectionHeading.astro';
 
 interface Props {
   locale?: Locale;
@@ -16,44 +17,40 @@ const { locale = DEFAULT_LOCALE } = Astro.props;
   <div class="container-page">
     <div class="edu-header">
       <span class="section-eyebrow">{ui.education.eyebrow[locale]}</span>
-      <h2 class="heading-section">
-        {ui.education.headingPrefix[locale]}{' '}
-        <span class="accent">{ui.education.headingAccent[locale]}</span
-        >{ui.education.headingSuffix[locale]}
-      </h2>
-      <p class="edu-intro">
-        {ui.education.intro[locale]}
-      </p>
+      <SectionHeading
+        prefix={ui.education.headingPrefix[locale]}
+        accent={ui.education.headingAccent[locale]}
+        suffix={ui.education.headingSuffix[locale]}
+      />
+      <p class="edu-intro">{ui.education.intro[locale]}</p>
     </div>
 
     <ul class="edu-list" role="list">
-      {
-        education.map((e) => (
-          <li class="edu-item" data-current={e.current}>
-            <div class="edu-icon" aria-hidden="true">
-              <Icon name="lucide:graduation-cap" />
+      {education.map((e) => (
+        <li class="edu-item" data-current={e.current}>
+          <div class="edu-icon" aria-hidden="true">
+            <Icon name="lucide:graduation-cap" />
+          </div>
+          <div class="edu-content">
+            <div class="edu-item-head">
+              <span class="edu-years">
+                {e.startYear} · {e.endYear}
+              </span>
+              {e.current && <span class="edu-tag">{ui.education.ongoing[locale]}</span>}
             </div>
-            <div class="edu-content">
-              <div class="edu-item-head">
-                <span class="edu-years">
-                  {e.startYear} · {e.endYear}
-                </span>
-                {e.current && <span class="edu-tag">{ui.education.ongoing[locale]}</span>}
-              </div>
-              <h3>
-                {e.url ? (
-                  <a href={e.url} target="_blank" rel="noopener">
-                    {e.institution}
-                  </a>
-                ) : (
-                  e.institution
-                )}
-              </h3>
-              <p>{e.degree[locale]}</p>
-            </div>
-          </li>
-        ))
-      }
+            <h3>
+              {e.url ? (
+                <a href={e.url} target="_blank" rel="noopener">
+                  {e.institution}
+                </a>
+              ) : (
+                e.institution
+              )}
+            </h3>
+            <p>{e.degree[locale]}</p>
+          </div>
+        </li>
+      ))}
     </ul>
   </div>
 </section>

@@ -1,0 +1,14 @@
+---
+// Hero role line: "<title> @<company>", e.g. "Data Engineer I @Company".
+// Lives in components/inline/, which Prettier skips: the formatter would put
+// each part on its own line, which renders as "@ Company" (extra space).
+// Styled by Hero.astro through :global(.dim) / :global(strong).
+interface Props {
+  title: string;
+  company: string;
+}
+
+const { title, company } = Astro.props;
+---
+
+{title}<span class="dim">{' @'}</span><strong>{company}</strong>
