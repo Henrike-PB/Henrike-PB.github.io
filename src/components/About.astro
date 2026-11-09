@@ -4,6 +4,7 @@ import { personal } from '@/data/personal';
 import { ui } from '@/i18n/ui';
 import type { Locale } from '@/lib/i18n';
 import { DEFAULT_LOCALE } from '@/lib/i18n';
+import SectionHeading from '@/components/inline/SectionHeading.astro';
 
 interface Props {
   locale?: Locale;
@@ -18,14 +19,17 @@ const paragraphs = personal.bio.paragraphs[locale];
   <div class="container-page about-grid">
     <div class="about-heading">
       <span class="section-eyebrow">{ui.about.eyebrow[locale]}</span>
-      <h2 class="heading-section">
-        {ui.about.headingPrefix[locale]}{' '}
-        <span class="accent">{ui.about.headingAccent[locale]}</span>{ui.about.headingSuffix[locale]}
-      </h2>
+      <SectionHeading
+        prefix={ui.about.headingPrefix[locale]}
+        accent={ui.about.headingAccent[locale]}
+        suffix={ui.about.headingSuffix[locale]}
+      />
     </div>
 
     <div class="about-body">
-      {paragraphs.map((p) => <p>{p}</p>)}
+      {paragraphs.map((p) => (
+        <p>{p}</p>
+      ))}
 
       <div class="about-cards">
         <a class="about-card" href={personal.contacts.linkedin} target="_blank" rel="me noopener">

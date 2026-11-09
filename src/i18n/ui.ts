@@ -152,7 +152,8 @@ export const ui = {
     headingAccent: { 'pt-BR': 'trouxe até aqui', en: 'brought me here' },
     headingSuffix: { 'pt-BR': '.', en: '.' },
     intro: {
-      'pt-BR': 'Os programas e cursos que construíram a base técnica e a mentalidade que carrego hoje.',
+      'pt-BR':
+        'Os programas e cursos que construíram a base técnica e a mentalidade que carrego hoje.',
       en: 'The programs and courses that built the technical foundation and the mindset I carry today.',
     },
     ongoing: { 'pt-BR': 'cursando', en: 'ongoing' },
@@ -164,7 +165,8 @@ export const ui = {
     headingAccent: { 'pt-BR': 'conversar', en: 'talk' },
     headingSuffix: { 'pt-BR': '?', en: '?' },
     intro: {
-      'pt-BR': 'Aberto a oportunidades, parcerias e conversas sobre tecnologia. Respondo o quanto antes.',
+      'pt-BR':
+        'Aberto a oportunidades, parcerias e conversas sobre tecnologia. Respondo o quanto antes.',
       en: 'Open to opportunities, partnerships and conversations about technology. I reply as soon as possible.',
     },
     emailLabel: { 'pt-BR': 'Email', en: 'Email' },

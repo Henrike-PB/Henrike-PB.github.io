@@ -5,6 +5,7 @@ import { volunteerActivities, getLogo } from '@/data/volunteer';
 import { ui } from '@/i18n/ui';
 import type { Locale } from '@/lib/i18n';
 import { DEFAULT_LOCALE } from '@/lib/i18n';
+import SectionHeading from '@/components/inline/SectionHeading.astro';
 
 interface Props {
   locale?: Locale;
@@ -17,70 +18,66 @@ const { locale = DEFAULT_LOCALE } = Astro.props;
   <div class="container-page">
     <div class="vol-header">
       <span class="section-eyebrow">{ui.volunteer.eyebrow[locale]}</span>
-      <h2 class="heading-section">
-        {ui.volunteer.headingPrefix[locale]}{' '}
-        <span class="accent">{ui.volunteer.headingAccent[locale]}</span
-        >{ui.volunteer.headingSuffix[locale]}
-      </h2>
-      <p class="vol-intro">
-        {ui.volunteer.intro[locale]}
-      </p>
+      <SectionHeading
+        prefix={ui.volunteer.headingPrefix[locale]}
+        accent={ui.volunteer.headingAccent[locale]}
+        suffix={ui.volunteer.headingSuffix[locale]}
+      />
+      <p class="vol-intro">{ui.volunteer.intro[locale]}</p>
     </div>
 
     <ul class="vol-grid" role="list">
-      {
-        volunteerActivities.map((v) => {
-          const logo = getLogo(v.logoFile);
-          return (
-            <li class="vol-card">
-              <div class="vol-logo" style={`background-color: ${v.brandColor}`} aria-hidden="true">
-                {logo ? (
-                  <Image
-                    src={logo}
-                    alt={`${ui.volunteer.logoAlt[locale]} ${v.org}`}
-                    widths={[120, 240]}
-                    sizes="120px"
-                    format="webp"
-                    quality={88}
-                    loading="lazy"
-                  />
-                ) : (
-                  <Icon name={v.fallbackIcon} />
-                )}
+      {volunteerActivities.map((v) => {
+        const logo = getLogo(v.logoFile);
+        return (
+          <li class="vol-card">
+            <div class="vol-logo" style={`background-color: ${v.brandColor}`} aria-hidden="true">
+              {logo ? (
+                <Image
+                  src={logo}
+                  alt={`${ui.volunteer.logoAlt[locale]} ${v.org}`}
+                  widths={[120, 240]}
+                  sizes="120px"
+                  format="webp"
+                  quality={88}
+                  loading="lazy"
+                />
+              ) : (
+                <Icon name={v.fallbackIcon} />
+              )}
+            </div>
+
+            <div class="vol-body">
+              <header class="vol-head">
+                <h3>
+                  {v.url ? (
+                    <a href={v.url} target="_blank" rel="noopener">
+                      {v.org}
+                    </a>
+                  ) : (
+                    v.org
+                  )}
+                </h3>
+                {v.fullName && <p class="vol-fullname">{v.fullName}</p>}
+              </header>
+
+              <div class="vol-meta">
+                <span class="vol-role">{v.role[locale]}</span>
+                <span class="vol-since">{v.since}</span>
               </div>
 
-              <div class="vol-body">
-                <header class="vol-head">
-                  <h3>
-                    {v.url ? (
-                      <a href={v.url} target="_blank" rel="noopener">
-                        {v.org}
-                      </a>
-                    ) : (
-                      v.org
-                    )}
-                  </h3>
-                  {v.fullName && <p class="vol-fullname">{v.fullName}</p>}
-                </header>
+              <p class="vol-desc">{v.description[locale]}</p>
 
-                <div class="vol-meta">
-                  <span class="vol-role">{v.role[locale]}</span>
-                  <span class="vol-since">{v.since}</span>
-                </div>
-
-                <p class="vol-desc">{v.description[locale]}</p>
-
-                {v.honor && (
-                  <p class="vol-honor">
-                    <Icon name="lucide:award" />
-                    {v.honor[locale]}
-                  </p>
-                )}
-              </div>
-            </li>
-          );
-        })
-      }
+              {v.honor && (
+                <p class="vol-honor">
+                  <Icon name="lucide:award" />
+                  {v.honor[locale]}
+                </p>
+              )}
+            </div>
+          </li>
+        );
+      })}
     </ul>
   </div>
 </section>

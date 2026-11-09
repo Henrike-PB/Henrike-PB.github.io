@@ -5,6 +5,7 @@ import { projects, projectCategoryIds } from '@/data/projects';
 import { ui } from '@/i18n/ui';
 import type { Locale } from '@/lib/i18n';
 import { DEFAULT_LOCALE } from '@/lib/i18n';
+import SectionHeading from '@/components/inline/SectionHeading.astro';
 
 interface Props {
   locale?: Locale;
@@ -17,100 +18,94 @@ const { locale = DEFAULT_LOCALE } = Astro.props;
   <div class="container-page">
     <div class="projects-header">
       <span class="section-eyebrow">{ui.projects.eyebrow[locale]}</span>
-      <h2 class="heading-section">
-        {ui.projects.headingPrefix[locale]}{' '}
-        <span class="accent">{ui.projects.headingAccent[locale]}</span
-        >{ui.projects.headingSuffix[locale]}
-      </h2>
-      <p class="projects-intro">
-        {ui.projects.intro[locale]}
-      </p>
+      <SectionHeading
+        prefix={ui.projects.headingPrefix[locale]}
+        accent={ui.projects.headingAccent[locale]}
+        suffix={ui.projects.headingSuffix[locale]}
+      />
+      <p class="projects-intro">{ui.projects.intro[locale]}</p>
     </div>
 
     <div class="projects-filter" role="group" aria-label={ui.projects.filterAria[locale]}>
-      {
-        projectCategoryIds.map((id, i) => (
-          <button
-            type="button"
-            class={i === 0 ? 'active' : ''}
-            aria-pressed={i === 0 ? 'true' : 'false'}
-            data-filter={id}
-          >
-            {ui.projects.category[id][locale]}
-          </button>
-        ))
-      }
+      {projectCategoryIds.map((id, i) => (
+        <button
+          type="button"
+          class={i === 0 ? 'active' : ''}
+          aria-pressed={i === 0 ? 'true' : 'false'}
+          data-filter={id}
+        >
+          {ui.projects.category[id][locale]}
+        </button>
+      ))}
     </div>
 
     <ul class="projects-grid" role="list" aria-label={ui.projects.listAria[locale]}>
-      {
-        projects.map((p) => (
-          <li class="project-card" data-category={p.category}>
-            <div class="project-image">
-              {p.image ? (
-                <Image
-                  src={p.image}
-                  alt={`${ui.projects.altPrefix[locale]} ${p.name}`}
-                  widths={[320, 480, 640]}
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  format="webp"
-                  quality={78}
-                  loading="lazy"
-                  decoding="async"
-                />
-              ) : (
-                <div class="project-image-fallback" aria-hidden="true">
-                  <Icon name={p.icon ?? 'lucide:layers'} />
-                </div>
-              )}
-              {p.featured && <span class="project-badge">{ui.projects.featured[locale]}</span>}
-            </div>
-            <div class="project-body">
-              <h3>{p.name}</h3>
-              {p.partner && (
-                <p class="project-partner">
-                  <Icon name="lucide:users" /> {ui.projects.withCollaborators[locale]} {p.partner}
-                </p>
-              )}
-              <p class="project-desc">{p.description[locale]}</p>
-              {p.note && <p class="project-note">{p.note[locale]}</p>}
-              <ul class="project-tech" role="list">
-                {p.tech.map((t) => (
-                  <li>{t}</li>
-                ))}
-              </ul>
-              {(p.liveUrl || p.repoUrl) && (
-                <div class="project-actions">
-                  {p.liveUrl && (
-                    <a
-                      href={p.liveUrl}
-                      target="_blank"
-                      rel="noopener"
-                      class="project-link"
-                      aria-label={`${ui.projects.seeProject[locale]}: ${p.name}`}
-                    >
-                      <Icon name="lucide:external-link" />
-                      {ui.projects.seeProject[locale]}
-                    </a>
-                  )}
-                  {p.repoUrl && (
-                    <a
-                      href={p.repoUrl}
-                      target="_blank"
-                      rel="noopener"
-                      class="project-link ghost"
-                      aria-label={`${ui.projects.seeRepo[locale]}: ${p.name}`}
-                    >
-                      <Icon name="simple-icons:github" />
-                      {ui.projects.seeRepo[locale]}
-                    </a>
-                  )}
-                </div>
-              )}
-            </div>
-          </li>
-        ))
-      }
+      {projects.map((p) => (
+        <li class="project-card" data-category={p.category}>
+          <div class="project-image">
+            {p.image ? (
+              <Image
+                src={p.image}
+                alt={`${ui.projects.altPrefix[locale]} ${p.name}`}
+                widths={[320, 480, 640]}
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                format="webp"
+                quality={78}
+                loading="lazy"
+                decoding="async"
+              />
+            ) : (
+              <div class="project-image-fallback" aria-hidden="true">
+                <Icon name={p.icon ?? 'lucide:layers'} />
+              </div>
+            )}
+            {p.featured && <span class="project-badge">{ui.projects.featured[locale]}</span>}
+          </div>
+          <div class="project-body">
+            <h3>{p.name}</h3>
+            {p.partner && (
+              <p class="project-partner">
+                <Icon name="lucide:users" /> {ui.projects.withCollaborators[locale]} {p.partner}
+              </p>
+            )}
+            <p class="project-desc">{p.description[locale]}</p>
+            {p.note && <p class="project-note">{p.note[locale]}</p>}
+            <ul class="project-tech" role="list">
+              {p.tech.map((t) => (
+                <li>{t}</li>
+              ))}
+            </ul>
+            {(p.liveUrl || p.repoUrl) && (
+              <div class="project-actions">
+                {p.liveUrl && (
+                  <a
+                    href={p.liveUrl}
+                    target="_blank"
+                    rel="noopener"
+                    class="project-link"
+                    aria-label={`${ui.projects.seeProject[locale]}: ${p.name}`}
+                  >
+                    <Icon name="lucide:external-link" />
+                    {ui.projects.seeProject[locale]}
+                  </a>
+                )}
+                {p.repoUrl && (
+                  <a
+                    href={p.repoUrl}
+                    target="_blank"
+                    rel="noopener"
+                    class="project-link ghost"
+                    aria-label={`${ui.projects.seeRepo[locale]}: ${p.name}`}
+                  >
+                    <Icon name="simple-icons:github" />
+                    {ui.projects.seeRepo[locale]}
+                  </a>
+                )}
+              </div>
+            )}
+          </div>
+        </li>
+      ))}
     </ul>
   </div>
 </section>

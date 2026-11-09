@@ -5,6 +5,7 @@ import type { ExperienceCategory } from '@/data/experience';
 import { ui } from '@/i18n/ui';
 import type { Locale } from '@/lib/i18n';
 import { DEFAULT_LOCALE } from '@/lib/i18n';
+import SectionHeading from '@/components/inline/SectionHeading.astro';
 
 interface Props {
   locale?: Locale;
@@ -27,95 +28,91 @@ const categoryIcons: Record<ExperienceCategory, string> = {
   <div class="container-page">
     <div class="timeline-header">
       <span class="section-eyebrow">{ui.timeline.eyebrow[locale]}</span>
-      <h2 class="heading-section">
-        {ui.timeline.headingPrefix[locale]}{' '}
-        <span class="accent">{ui.timeline.headingAccent[locale]}</span
-        >{ui.timeline.headingSuffix[locale]}
-      </h2>
-      <p class="timeline-intro">
-        {ui.timeline.intro[locale]}
-      </p>
+      <SectionHeading
+        prefix={ui.timeline.headingPrefix[locale]}
+        accent={ui.timeline.headingAccent[locale]}
+        suffix={ui.timeline.headingSuffix[locale]}
+      />
+      <p class="timeline-intro">{ui.timeline.intro[locale]}</p>
     </div>
 
     <ol class="timeline" role="list">
-      {
-        list.map((exp) => {
-          const icon = categoryIcons[exp.category];
-          const catLabel = ui.timeline.category[exp.category][locale];
-          return (
-            <li class={`tl-item tl-${exp.category}`} data-current={exp.current}>
-              <div class="tl-marker" aria-hidden="true">
-                <span class="tl-dot" />
-              </div>
+      {list.map((exp) => {
+        const icon = categoryIcons[exp.category];
+        const catLabel = ui.timeline.category[exp.category][locale];
+        return (
+          <li class={`tl-item tl-${exp.category}`} data-current={exp.current}>
+            <div class="tl-marker" aria-hidden="true">
+              <span class="tl-dot" />
+            </div>
 
-              <article class="tl-card">
-                <header class="tl-card-head">
-                  <div class="tl-meta">
-                    <span class="tl-year">
-                      {exp.startYear}
-                      {exp.endYear ? ` · ${exp.endYear}` : ''}
-                      {exp.current && <em class="tl-now">{ui.timeline.current[locale]}</em>}
-                    </span>
-                    <span class={`tl-cat tl-cat-${exp.category}`}>
-                      <Icon name={icon} />
-                      {catLabel}
-                    </span>
-                  </div>
-                  <h3 class="tl-company">
-                    {exp.url ? (
-                      <a href={exp.url} target="_blank" rel="noopener">
-                        {exp.company}
-                      </a>
-                    ) : (
-                      exp.company
-                    )}
-                  </h3>
+            <article class="tl-card">
+              <header class="tl-card-head">
+                <div class="tl-meta">
+                  <span class="tl-year">
+                    {exp.startYear}
+                    {exp.endYear ? ` · ${exp.endYear}` : ''}
+                    {exp.current && <em class="tl-now">{ui.timeline.current[locale]}</em>}
+                  </span>
+                  <span class={`tl-cat tl-cat-${exp.category}`}>
+                    <Icon name={icon} />
+                    {catLabel}
+                  </span>
+                </div>
+                <h3 class="tl-company">
+                  {exp.url ? (
+                    <a href={exp.url} target="_blank" rel="noopener">
+                      {exp.company}
+                    </a>
+                  ) : (
+                    exp.company
+                  )}
+                </h3>
 
-                  <ul class="tl-roles" role="list">
-                    {exp.roles.map((r, i) => (
-                      <li>
-                        <span class="tl-role-bullet" aria-hidden="true">
-                          {i === 0 ? '●' : '○'}
-                        </span>
-                        <span class="tl-role-title">{r.title[locale]}</span>
-                        <span class="tl-role-since">{r.since}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </header>
+                <ul class="tl-roles" role="list">
+                  {exp.roles.map((r, i) => (
+                    <li>
+                      <span class="tl-role-bullet" aria-hidden="true">
+                        {i === 0 ? '●' : '○'}
+                      </span>
+                      <span class="tl-role-title">{r.title[locale]}</span>
+                      <span class="tl-role-since">{r.since}</span>
+                    </li>
+                  ))}
+                </ul>
+              </header>
 
-                {exp.summary && <p class="tl-summary">{exp.summary[locale]}</p>}
+              {exp.summary && <p class="tl-summary">{exp.summary[locale]}</p>}
 
-                {exp.highlights && exp.highlights[locale].length > 0 && (
-                  <ul class="tl-highlights" role="list">
-                    {exp.highlights[locale].map((h) => (
-                      <li>
-                        <Icon name="lucide:check" />
-                        <span>{h}</span>
-                      </li>
-                    ))}
-                  </ul>
-                )}
+              {exp.highlights && exp.highlights[locale].length > 0 && (
+                <ul class="tl-highlights" role="list">
+                  {exp.highlights[locale].map((h) => (
+                    <li>
+                      <Icon name="lucide:check" />
+                      <span>{h}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
 
-                {exp.honor && (
-                  <p class="tl-honor">
-                    <Icon name="lucide:award" />
-                    {exp.honor[locale]}
-                  </p>
-                )}
+              {exp.honor && (
+                <p class="tl-honor">
+                  <Icon name="lucide:award" />
+                  {exp.honor[locale]}
+                </p>
+              )}
 
-                {exp.tech && exp.tech.length > 0 && (
-                  <ul class="tl-tags" role="list">
-                    {exp.tech.map((t) => (
-                      <li>{t}</li>
-                    ))}
-                  </ul>
-                )}
-              </article>
-            </li>
-          );
-        })
-      }
+              {exp.tech && exp.tech.length > 0 && (
+                <ul class="tl-tags" role="list">
+                  {exp.tech.map((t) => (
+                    <li>{t}</li>
+                  ))}
+                </ul>
+              )}
+            </article>
+          </li>
+        );
+      })}
     </ol>
   </div>
 </section>

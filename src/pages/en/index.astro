@@ -15,11 +15,7 @@ import { ui } from '@/i18n/ui';
 const locale = 'en' as const;
 ---
 
-<Base
-  locale={locale}
-  title={ui.meta.title[locale]}
-  description={ui.meta.description[locale]}
->
+<Base locale={locale} title={ui.meta.title[locale]} description={ui.meta.description[locale]}>
   <Header locale={locale} />
   <main id="main">
     <Hero locale={locale} />
