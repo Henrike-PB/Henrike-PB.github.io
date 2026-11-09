@@ -29,6 +29,20 @@ function img(name: string): ImageMetadata | undefined {
 
 export const projects: Project[] = [
   {
+    id: 'versioned-serving-layer',
+    name: 'Versioned Serving Layer',
+    description: {
+      'pt-BR':
+        'Camada de serving de tabelas analíticas no PostgreSQL em que o leitor nunca vê carga pela metade: cada release é carregada num schema versionado, passa por um quality gate (contagens, chaves duplicadas, regras de negócio) e só então as views estáveis são reapontadas numa única transação. Inclui import server-side do object storage (padrão da extensão aws_s3 do RDS, emulado com LocalStack), controle de versões com view de freshness, limpeza automática, role de leitura com menor privilégio e arquitetura hexagonal com handlers no formato serverless. Testado contra Postgres real, com CI e benchmark próprio em 1M de linhas mockadas.',
+      en: 'Serving layer for analytical tables on PostgreSQL where readers never see a half-loaded table: each release is loaded into a versioned schema, goes through a quality gate (row counts, duplicate keys, business rules) and only then are the stable views repointed in a single transaction. Includes server-side import from object storage (the RDS aws_s3 extension pattern, emulated with LocalStack), a release registry with a freshness view, automatic cleanup, a least-privilege read role and a hexagonal architecture with serverless-style handlers. Tested against a real Postgres, with CI and its own benchmark on 1M mock rows.',
+    },
+    category: 'data',
+    tech: ['Python', 'PostgreSQL', 'Docker', 'LocalStack (S3)', 'pytest', 'mypy', 'GitHub Actions'],
+    icon: 'lucide:database',
+    repoUrl: 'https://github.com/Henrike-PB/versioned-serving-layer',
+    featured: true,
+  },
+  {
     id: 'analise-desempenho-academico',
     name: 'Análise de Desempenho Acadêmico com Machine Learning',
     description: {
@@ -221,8 +235,7 @@ export const projects: Project[] = [
     id: 'kiko-clicker',
     name: 'Kiko Clicker',
     description: {
-      'pt-BR':
-        'Jogo de clicker viciante: mecânica simples, competição por pontuações mais altas.',
+      'pt-BR': 'Jogo de clicker viciante: mecânica simples, competição por pontuações mais altas.',
       en: 'Addictive clicker game: simple mechanics, competition for higher scores.',
     },
     category: 'game',
