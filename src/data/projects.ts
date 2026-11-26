@@ -43,6 +43,20 @@ export const projects: Project[] = [
     featured: true,
   },
   {
+    id: 'offtape',
+    name: 'Offtape',
+    description: {
+      'pt-BR':
+        'Pipeline local que leva uma playlist do Spotify pro pen drive do carro: lê as faixas com login OAuth + PKCE, procura cada música no YouTube e escolhe a melhor versão por pontuação (official audio, duração), baixa em MP3 320 kbps com tags ID3 e copia para o pen drive numa pasta compatível com FAT32. É idempotente (rodar de novo só baixa o que falta), faz 3 downloads em paralelo com fallback quando um vídeo está indisponível, guarda o histórico em SQLite e gera relatórios CSV de cada execução. Interface web local em Flask, modo terminal e CI.',
+      en: 'Local pipeline that takes a Spotify playlist to a car USB drive: reads the tracks with OAuth + PKCE login, searches each song on YouTube and picks the best version by score (official audio, duration), downloads 320 kbps MP3 with ID3 tags and copies it to the drive in a FAT32-safe folder. It is idempotent (re-running only downloads what is missing), runs 3 downloads in parallel with a fallback when a video is unavailable, keeps history in SQLite and writes CSV reports for every run. Local Flask web UI, CLI mode and CI.',
+    },
+    category: 'data',
+    tech: ['Python', 'Flask', 'Spotify API', 'yt-dlp', 'SQLite', 'GitHub Actions'],
+    icon: 'lucide:music',
+    repoUrl: 'https://github.com/Henrike-PB/offtape',
+    featured: true,
+  },
+  {
     id: 'analise-desempenho-academico',
     name: 'Análise de Desempenho Acadêmico com Machine Learning',
     description: {
