@@ -53,6 +53,7 @@ export default defineConfig({
           'line-chart',
           'mail',
           'moon',
+          'music',
           'paw-print',
           'scale',
           'send',
